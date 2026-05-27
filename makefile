@@ -2,8 +2,6 @@
 SHELL         := /usr/bin/env bash
 .DEFAULT_GOAL := current
 
-SRC_DIR       := src
-
 DEPS := \
   binutils \
   debootstrap \
@@ -49,7 +47,7 @@ bootstrap:
 
 current: bootstrap
 	@echo "[MAKE] Building current language..."
-	@cd $(SRC_DIR) && ./build.sh
+	@./build.sh
 
 clean:
 	@echo "[MAKE] Cleaning build artifacts..."

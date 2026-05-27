@@ -6,7 +6,7 @@
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.anduinos.com%2F)](https://www.anduinos.com/)
 [![ManHours](https://manhours.aiursoft.com/r/gitlab.aiursoft.com/anduin/anduinos.svg)](https://gitlab.aiursoft.com/anduin/anduinos/-/commits/1.1?ref_type=heads)
 
-<img align="right" width="100" height="100" src="./src/mods/30-gnome-extension-arcmenu-patch/logo.svg">
+<img align="right" width="100" height="100" src="./mods/34-gnome-extension-arcmenu-patch/logo.svg">
 
 AnduinOS is a custom Ubuntu-based Linux distribution that offers a familiar and easy-to-use experience for anyone moving to Linux.
 
@@ -30,9 +30,9 @@ To build the OS, run the following command:
 make
 ```
 
-To edit the build parameters, modify the `./src/args.sh` file.
+To edit the build parameters, modify the `./args.sh` file.
 
-That's it. The built file will be an ISO file in the `./src/dist` directory.
+That's it. The built file will be an ISO file in the `./dist` directory.
 
 Simply mount the built ISO file to an virtual machine, and you can start testing it.
 

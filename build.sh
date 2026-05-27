@@ -7,6 +7,7 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
+
 source $SCRIPT_DIR/shared.sh
 source $SCRIPT_DIR/args.sh
 
@@ -17,18 +18,13 @@ function bind_signal() {
 }
 
 function clean() {
-    # This clean function is used to clean up the places where current build may touch and create
-    print_ok "Cleaning up..."
+    print_ok "Cleaning up previous build..."
     sudo umount new_building_os/sys || sudo umount -lf new_building_os/sys || true
     sudo umount new_building_os/proc || sudo umount -lf new_building_os/proc || true
     sudo umount new_building_os/dev || sudo umount -lf new_building_os/dev || true
     sudo umount new_building_os/run || sudo umount -lf new_building_os/run || true
-    sudo rm -rf new_building_os || true
-    judge "Clean up rootfs"
-    sudo rm -rf image || true
-    judge "Clean up image"
-    sudo rm -f $TARGET_NAME.iso || true
-    judge "Clean up iso"
+    sudo rm -rf new_building_os image || true
+    judge "Clean up build artifacts"
 }
 
 function setup_host() {
@@ -49,7 +45,7 @@ function setup_host() {
 
     print_ok "Creating new_building_os directory..."
     sudo mkdir -p new_building_os
-    judge "Create new_building_os directory"
+    judge "Create build directory"
 
     print_ok "Setting up mods executable..."
     find . -type f -name "*.sh" -exec chmod +x {} \;
@@ -67,7 +63,7 @@ function mount_folders() {
     sudo systemctl daemon-reload
     judge "Reload systemd daemon"
 
-    print_ok "Mounting /dev /run from host to new_building_os..."
+    print_ok "Mounting /dev /run from host to build dir..."
     sudo mount --bind /dev new_building_os/dev
     sudo mount --bind /run new_building_os/run
     judge "Mount /dev /run"
@@ -78,10 +74,10 @@ function mount_folders() {
     sudo chroot new_building_os mount none -t devpts /dev/pts
     judge "Mount /proc /sys /dev/pts"
 
-    print_ok "Copying mods to new_building_os/root..."
+    print_ok "Copying mods to chroot /root/mods..."
     sudo cp -r $SCRIPT_DIR/mods new_building_os/root/mods
-    sudo cp ./args.sh   new_building_os/root/mods/args.sh
-    sudo cp ./shared.sh new_building_os/root/mods/shared.sh
+    sudo cp $SCRIPT_DIR/args.sh   new_building_os/root/mods/args.sh
+    sudo cp $SCRIPT_DIR/shared.sh new_building_os/root/mods/shared.sh
 }
 
 function run_chroot() {
@@ -100,9 +96,9 @@ function run_chroot() {
 }
 
 function umount_folders() {
-    print_ok "Cleaning mods from new_building_os/root..."
+    print_ok "Cleaning mods from chroot /root/mods..."
     sudo rm -rf new_building_os/root/mods
-    judge "Clean up new_building_os /root/mods"
+    judge "Clean up chroot /root/mods"
 
     print_ok "Unmounting /proc /sys /dev/pts within chroot..."
     sudo chroot new_building_os umount /dev/pts || sudo chroot new_building_os umount -lf /dev/pts
@@ -113,7 +109,7 @@ function umount_folders() {
     print_ok "Unmounting /dev /run outside of chroot..."
     sudo umount new_building_os/dev || sudo umount -lf new_building_os/dev
     sudo umount new_building_os/run || sudo umount -lf new_building_os/run
-    judge "Unmount /dev /run /proc /sys"
+    judge "Unmount /dev /run"
 }
 
 function build_iso() {
@@ -130,10 +126,6 @@ function build_iso() {
     sudo cp new_building_os/boot/initrd.img-**-**-generic image/casper/initrd
     judge "Copy kernel files"
 
-    print_ok "Copying repair.sh to /REPAIR.sh in the image..."
-    sudo cp $SCRIPT_DIR/repair.sh image/REPAIR.sh
-    judge "Copy repair.sh to image"
-    
     print_ok "Generating grub.cfg..."
     touch image/$TARGET_NAME
     cp $SCRIPT_DIR/args.sh image/$TARGET_NAME
@@ -274,7 +266,7 @@ Press F12 to enter the boot menu when you start your computer. Select the USB dr
 For detailed instructions, please visit [$TARGET_BUSINESS_NAME Document](https://docs.anduinos.com/Install/System-Requirements.html).
 EOF
 
-    pushd $SCRIPT_DIR/image
+    pushd image
     print_ok "Creating EFI boot image on /isolinux/efiboot.img..."
     (
         cd isolinux && \
@@ -355,10 +347,10 @@ EOF
 function umount_on_exit() {
     sleep 2
     print_ok "Umount before exit..."
-    sudo umount new_building_os/sys || sudo umount -lf new_building_os/sys || true
-    sudo umount new_building_os/proc || sudo umount -lf new_building_os/proc || true
-    sudo umount new_building_os/dev || sudo umount -lf new_building_os/dev || true
-    sudo umount new_building_os/run || sudo umount -lf new_building_os/run || true
+    sudo umount $SCRIPT_DIR/new_building_os/sys || sudo umount -lf $SCRIPT_DIR/new_building_os/sys || true
+    sudo umount $SCRIPT_DIR/new_building_os/proc || sudo umount -lf $SCRIPT_DIR/new_building_os/proc || true
+    sudo umount $SCRIPT_DIR/new_building_os/dev || sudo umount -lf $SCRIPT_DIR/new_building_os/dev || true
+    sudo umount $SCRIPT_DIR/new_building_os/run || sudo umount -lf $SCRIPT_DIR/new_building_os/run || true
     judge "Umount before exit"
 }
 
