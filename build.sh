@@ -80,6 +80,40 @@ function mount_folders() {
     sudo cp $SCRIPT_DIR/shared.sh new_building_os/root/mods/shared.sh
 }
 
+function setup_apt() {
+    print_ok "Setting up AnduinOS APKG apt source in chroot..."
+
+    local keyring_path="new_building_os/usr/share/keyrings/anduinos-archive-keyring.gpg"
+    local cert_url="$APKG_SERVER/artifacts/certs/$APKG_CERT_NAME"
+
+    print_ok "Downloading GPG keyring from $cert_url ..."
+    sudo mkdir -p new_building_os/usr/share/keyrings
+    curl -sL "$cert_url" | gpg --dearmor | sudo tee "$keyring_path" > /dev/null
+    judge "Download and dearmor keyring"
+
+    print_ok "Generating anduinos.sources for $APKG_SERVER (suite: $TARGET_UBUNTU_VERSION-addon)..."
+    sudo mkdir -p new_building_os/etc/apt/sources.list.d
+    sudo tee new_building_os/etc/apt/sources.list.d/anduinos.sources > /dev/null <<EOF
+Types: deb
+URIs: $APKG_SERVER/artifacts/anduinos/
+Suites: $TARGET_UBUNTU_VERSION-addon
+Components: main
+Architectures: amd64
+Signed-By: /usr/share/keyrings/anduinos-archive-keyring.gpg
+EOF
+    judge "Generate sources"
+
+    print_ok "Running apt update in chroot..."
+    sudo chroot new_building_os apt update
+    judge "Apt update in chroot"
+
+    print_ok "Installing AnduinOS base packages (keyring + apt config)..."
+    sudo chroot new_building_os apt install -y \
+        anduinos-archive-keyring \
+        anduinos-apt-config
+    judge "Install base packages"
+}
+
 function run_chroot() {
     print_ok "Running install_all_mods.sh in new_building_os..."
     print_warn "============================================"
@@ -93,33 +127,6 @@ function run_chroot() {
 
     print_ok "Sleeping for 5 seconds to allow chroot to exit cleanly..."
     sleep 5
-}
-
-function setup_apt() {
-    print_ok "Setting up AnduinOS APKG apt source in chroot..."
-
-    print_ok "Copying GPG keyring to chroot..."
-    sudo cp $SCRIPT_DIR/apt-bootstrap/anduinos-archive-keyring.gpg \
-        new_building_os/usr/share/keyrings/
-    judge "Copy keyring"
-
-    print_ok "Generating anduinos.sources for $APKG_SERVER (suite: $TARGET_UBUNTU_VERSION-addon)..."
-    sudo mkdir -p new_building_os/etc/apt/sources.list.d
-    sed -e "s|__APKG_SERVER__|$APKG_SERVER|g" \
-        -e "s|__TARGET_SUITE__|$TARGET_UBUNTU_VERSION|g" \
-        $SCRIPT_DIR/apt-bootstrap/anduinos.sources.template \
-        | sudo tee new_building_os/etc/apt/sources.list.d/anduinos.sources > /dev/null
-    judge "Generate sources"
-
-    print_ok "Running apt update in chroot..."
-    sudo chroot new_building_os apt update
-    judge "Apt update in chroot"
-
-    print_ok "Installing AnduinOS base packages (keyring + apt config)..."
-    sudo chroot new_building_os apt install -y \
-        anduinos-archive-keyring \
-        anduinos-apt-config
-    judge "Install base packages"
 }
 
 function umount_folders() {

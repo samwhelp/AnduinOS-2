@@ -1,20 +1,10 @@
 # APT Bootstrap
 
-These files are injected into the chroot after debootstrap to enable access
-to the AnduinOS APKG package server.
+The build downloads the GPG keyring from the APKG server at build time
+and generates the APT sources file inline — no static seed files needed.
 
-## Files
+- **Keyring**: fetched from `$APKG_SERVER/artifacts/certs/$APKG_CERT_NAME`
+  and dearmored into `/usr/share/keyrings/`
+- **Sources**: generated from `APKG_SERVER` and `TARGET_UBUNTU_VERSION` in `setup_apt()`
 
-- **anduinos-archive-keyring.gpg** — GPG public key for verifying the APKG
-  server's Release signatures. Copied from the source of truth:
-  `../anduinos-packages/anduinos-archive-keyring/deploy/anduinos-archive-keyring.gpg`
-- **anduinos.sources.template** — deb822 APT sources file with placeholders.
-  `__APKG_SERVER__` and `__TARGET_SUITE__` are substituted by `setup_apt`.
-
-## Updating the keyring
-
-When the APKG signing key is rotated:
-
-```bash
-cp ../anduinos-packages/anduinos-archive-keyring/deploy/anduinos-archive-keyring.gpg .
-```
+Both variables are configured in `args.sh`.

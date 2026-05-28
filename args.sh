@@ -233,6 +233,10 @@ export CONFIG_WEATHER_LOCATION="['{\"name\":\"San Francisco, California, United 
 # It serves the anduinos-* packages (keyring, apt-config, branding, etc.).
 export APKG_SERVER="https://apkg-dev.aiursoft.com"
 
+# GPG certificate name on the APKG server (used to download and verify the repo).
+# The cert is fetched from: $APKG_SERVER/artifacts/certs/$APKG_CERT_NAME
+export APKG_CERT_NAME="anduinos"
+
 #============================
 # Live system configuration
 #============================
