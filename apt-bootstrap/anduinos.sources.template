@@ -1,0 +1,6 @@
+Types: deb
+URIs: __APKG_SERVER__/artifacts/anduinos/
+Suites: __TARGET_SUITE__-addon
+Components: main
+Architectures: amd64
+Signed-By: /usr/share/keyrings/anduinos-archive-keyring.gpg

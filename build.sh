@@ -95,6 +95,27 @@ function run_chroot() {
     sleep 5
 }
 
+function setup_apt() {
+    print_ok "Setting up AnduinOS APKG apt source in chroot..."
+
+    print_ok "Copying GPG keyring to chroot..."
+    sudo cp $SCRIPT_DIR/apt-bootstrap/anduinos-archive-keyring.gpg \
+        new_building_os/usr/share/keyrings/
+    judge "Copy keyring"
+
+    print_ok "Generating anduinos.sources for $APKG_SERVER (suite: $TARGET_UBUNTU_VERSION-addon)..."
+    sudo mkdir -p new_building_os/etc/apt/sources.list.d
+    sed -e "s|__APKG_SERVER__|$APKG_SERVER|g" \
+        -e "s|__TARGET_SUITE__|$TARGET_UBUNTU_VERSION|g" \
+        $SCRIPT_DIR/apt-bootstrap/anduinos.sources.template \
+        | sudo tee new_building_os/etc/apt/sources.list.d/anduinos.sources > /dev/null
+    judge "Generate sources"
+
+    print_ok "Running apt update in chroot..."
+    sudo chroot new_building_os apt update
+    judge "Apt update in chroot"
+}
+
 function umount_folders() {
     print_ok "Cleaning mods from chroot /root/mods..."
     sudo rm -rf new_building_os/root/mods
@@ -361,6 +382,7 @@ clean
 setup_host
 download_base_system
 mount_folders
+setup_apt
 run_chroot
 umount_folders
 build_iso

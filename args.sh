@@ -226,6 +226,14 @@ export TIMEZONE="America/Los_Angeles"
 export CONFIG_WEATHER_LOCATION="['{\"name\":\"San Francisco, California, United States\",\"lat\":37.7749295,\"lon\":-122.4194155}']"
 
 #============================
+# AnduinOS APKG server configuration
+#============================
+
+# This is the APKG server URL for AnduinOS-branded overlay packages.
+# It serves the anduinos-* packages (keyring, apt-config, branding, etc.).
+export APKG_SERVER="https://apkg-dev.aiursoft.com"
+
+#============================
 # Live system configuration
 #============================
 
