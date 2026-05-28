@@ -107,10 +107,12 @@ EOF
     sudo chroot new_building_os apt update
     judge "Apt update in chroot"
 
-    print_ok "Installing AnduinOS base packages (keyring + apt config)..."
+    print_ok "Installing AnduinOS base packages..."
     sudo chroot new_building_os apt install -y \
         anduinos-archive-keyring \
-        anduinos-apt-config
+        anduinos-apt-config \
+        anduinos-plymouth-branding \
+        base-files
     judge "Install base packages"
 }
 
