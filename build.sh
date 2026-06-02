@@ -116,37 +116,17 @@ EOF
     sudo chroot new_building_os apt update
     judge "Apt update in chroot"
 
-    # Upgrade base system BEFORE installing swap packages.
-    # apt upgrade must not see swap packages yet — it would try to
-    # "normalize" them back to ubuntu's lower version and fail.
+    # Upgrade base system BEFORE mods run.  Swap packages (mod 01)
+    # must not be visible to this upgrade — apt would try to
+    # "normalize" them back to Ubuntu's lower version and fail.
     print_ok "Upgrading base system packages..."
     sudo chroot new_building_os apt -y upgrade
     judge "Upgrade base system"
 
-    # plymouth-theme-spinner and base-files are "swap packages":
-    # same name as ubuntu's, version = 1:$(UpstreamVersion)-anduinos.
-    #
-    # Why swap instead of a separate branding package:
-    #   plymouth owns ubuntu-logo.png + watermark.png (shared with theme-spinner)
-    #   plymouth-theme-spinner owns watermark.png + bgrt-fallback.png
-    #   Both packages ship the same 3 files across noble/questing/resolute,
-    #   just split differently per suite. A separate branding package would
-    #   need to Conflict+Replaces both — messy and fragile.
-    #
-    #   By publishing as plymouth-theme-spinner with Replaces: plymouth, dpkg
-    #   lets us overwrite all 3 files cleanly: ours is the NEW package being
-    #   installed over both plymouth and plymouth-theme-spinner's old files.
-    #   Epoch 1: guarantees dpkg version comparison beats ubuntu.
-    #   APT origin priority 1001 (set by anduinos-apt-config) ensures ours
-    #   wins regardless. No apt-mark hold / apt preferences hack needed.
-    print_ok "Installing AnduinOS base packages..."
-    sudo chroot new_building_os apt install -y \
-        anduinos-archive-keyring \
-        anduinos-apt-config \
-        plymouth-theme-spinner \
-        base-files \
-        anduinos-templates
-    judge "Install base packages"
+    # Swap packages (base-files, plymouth-theme-spinner, etc.) are
+    # installed by mod 01-install-swap-packages-mod — not here.
+    # This keeps setup_apt() single-responsibility: it only configures
+    # APT sources and upgrades the base system, nothing more.
 }
 
 function run_chroot() {
