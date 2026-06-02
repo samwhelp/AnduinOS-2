@@ -24,9 +24,9 @@
 #   wins regardless. No apt-mark hold / apt preferences hack needed.
 #
 # Installation order matters:
-#   anduinos-archive-keyring + anduinos-apt-config must be installed
+#   anduinos-apt-config (→ Depends → archive-keyring) must be installed
 #   FIRST so that APT pinning is active before the other swap packages
-#   are resolved.
+#   are resolved.  The keyring is pulled automatically via Depends.
 
 set -e
 set -o pipefail
@@ -36,11 +36,10 @@ source /root/mods/args.sh
 
 print_ok "Installing AnduinOS APT configuration..."
 
-apt install -y anduinos-archive-keyring
-judge "Install anduinos-archive-keyring"
-
+# anduinos-apt-config Depends on anduinos-archive-keyring, so one
+# apt install pulls both: keyring → trust → sources → pinning.
 apt install -y anduinos-apt-config
-judge "Install anduinos-apt-config (APT pinning active)"
+judge "Install anduinos-apt-config + anduinos-archive-keyring"
 
 print_ok "Installing AnduinOS swap packages..."
 
