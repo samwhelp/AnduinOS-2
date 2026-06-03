@@ -195,7 +195,6 @@ apt install $INTERACTIVE \
     alsa-utils \
     alsa-base \
     alsa-topology-conf \
-    alsa-ucm-conf \
     fprintd --no-install-recommends
 judge "Install ubuntu drivers support"
 

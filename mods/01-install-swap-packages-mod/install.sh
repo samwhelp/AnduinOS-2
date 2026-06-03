@@ -34,29 +34,31 @@ set -o pipefail
 source /root/mods/shared.sh
 source /root/mods/args.sh
 
-print_ok "Installing AnduinOS APT configuration..."
 
 # anduinos-apt-config Depends on anduinos-archive-keyring, so one
 # apt install pulls both: keyring → trust → sources → pinning.
+print_ok "Installing anduinos-apt-config (includes anduinos-archive-keyring)..."
 apt install -y anduinos-apt-config
 judge "Install anduinos-apt-config + anduinos-archive-keyring"
 
-print_ok "Installing AnduinOS swap packages..."
-
+print_ok "Installing plymouth-theme-spinner (swap)..."
 apt install -y plymouth-theme-spinner
 judge "Install plymouth-theme-spinner (swap)"
 
+print_ok "Installing AnduinOS base-files (swap)..."
 apt install -y base-files
 judge "Install base-files (swap)"
 
+print_ok "Installing AnduinOS templates and themes..."
 apt install -y anduinos-templates
 judge "Install anduinos-templates"
 
+print_ok "Installing AnduinOS desktop theme..."
 apt install -y anduinos-theme
 judge "Install anduinos-theme"
 
-
-apt install -y firmware-sof-anduinos
-judge "Install firmware-sof-anduinos"
+print_ok "Installing AnduinOS firmware packages..."
+apt install -y firmware-sof-anduinos alsa-ucm-conf-anduinos
+judge "Install firmware-sof-anduinos and alsa-ucm-conf-anduinos"
 
 print_ok "Base packages installed."

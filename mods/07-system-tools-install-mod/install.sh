@@ -22,7 +22,6 @@ apt install $INTERACTIVE \
     ethtool \
     fdisk \
     file \
-    firmware-sof-signed \
     ftp \
     grub-common \
     grub2-common \
