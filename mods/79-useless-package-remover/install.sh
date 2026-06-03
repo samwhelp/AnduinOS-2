@@ -38,12 +38,13 @@ packages=(
     popularity-contest
     ubuntu-report
     apport
-    whoopsie
     snapd
     snap
     snap-store
     xterm
 )
+
+#whoopsie
 
 for pkg in "${packages[@]}"; do
     if dpkg -l "$pkg" 2>/dev/null | grep -q '^ii'; then
