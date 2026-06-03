@@ -55,10 +55,8 @@ judge "Install anduinos-templates"
 apt install -y anduinos-theme
 judge "Install anduinos-theme"
 
-apt install -y alsa-ucm-conf-anduinos
-judge "Install alsa-ucm-conf-anduinos"
 
-apt install -y anduinos-sof-firmware
-judge "Install anduinos-sof-firmware"
+apt install -y firmware-sof-anduinos
+judge "Install firmware-sof-anduinos"
 
 print_ok "Base packages installed."
