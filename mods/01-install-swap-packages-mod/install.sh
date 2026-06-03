@@ -52,9 +52,6 @@ judge "Install base-files (swap)"
 apt install -y anduinos-templates
 judge "Install anduinos-templates"
 
-apt install -y anduinos-dconf-defaults
-judge "Install anduinos-dconf-defaults"
-
 apt install -y anduinos-theme
 judge "Install anduinos-theme"
 
