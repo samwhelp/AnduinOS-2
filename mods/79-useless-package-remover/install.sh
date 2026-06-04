@@ -44,6 +44,8 @@ packages=(
     snap
     snap-store
     xterm
+    software-properties-common
+    software-properties-gtk
 )
 
 #whoopsie

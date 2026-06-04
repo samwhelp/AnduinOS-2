@@ -22,7 +22,6 @@ apt install $INTERACTIVE \
     fwupd-signed \
     gdb \
     sassc \
-    software-properties-common \
     gnome-remote-desktop \
     mesa-vulkan-drivers \
     squashfs-tools \

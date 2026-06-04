@@ -7,7 +7,6 @@ if [ "$FIREFOX_PROVIDER" == "none" ]; then
 elif [ "$FIREFOX_PROVIDER" == "deb" ]; then
     print_ok "Adding Mozilla Firefox PPA"
     wait_network
-    apt install $INTERACTIVE software-properties-common
     add-apt-repository -y ppa:mozillateam/ppa
     if [ -n "$BUILD_FIREFOX_MIRROR" ]; then
         print_ok "Replace ppa.launchpadcontent.net with $BUILD_FIREFOX_MIRROR to get faster download speed"
