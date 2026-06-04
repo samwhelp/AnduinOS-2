@@ -38,6 +38,7 @@ packages=(
     ubuntu-pro-client-l10n
     popularity-contest
     ubuntu-report
+    ubuntu-wallpaper
     apport
     snapd
     snap
