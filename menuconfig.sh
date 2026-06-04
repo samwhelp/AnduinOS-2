@@ -361,7 +361,6 @@ menu_preinstalled_apps() {
         "seahorse|Password and encryption key manager"
         "papers|Document viewer (PDF, etc.)"
         "shotwell|Photo manager"
-        "sysprof|System profiler"
         "remmina|Remote desktop client (+ RDP plugin)"
         "rhythmbox|Music player and organizer"
         "showtime|Video player"
