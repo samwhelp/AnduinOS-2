@@ -245,47 +245,6 @@ export APKG_CERT_NAME="anduinos"
 # It can be any Ubuntu mirror that you prefer.
 export LIVE_UBUNTU_MIRROR="https://mirror.aiursoft.com/ubuntu/"
 
-#============================
-# System apps configuration
-#============================
-# The default apps to be installed.
-# All those apps are optional. You can remove any of them if you don't need them.
-export DEFAULT_APPS="
-    gnome-chess \
-    gnome-clocks \
-    gnome-weather \
-    gnome-calendar \
-    gnome-text-editor \
-    seahorse \
-    papers \
-    shotwell \
-    remmina remmina-plugin-rdp \
-    rhythmbox rhythmbox-plugins \
-    showtime \
-    transmission-gtk transmission-common \
-    ffmpegthumbnailer \
-    libgdk-pixbuf2.0-bin \
-    usb-creator-gtk \
-    baobab \
-    file-roller \
-    gnome-sushi \
-    qalculate-gtk \
-    yelp \
-    gparted \
-    gnome-user-docs \
-    gnome-disk-utility \
-    gnome-logs \
-    resources \
-    gnome-sound-recorder \
-    gnome-characters \
-    gnome-power-manager \
-    gnome-snapshot \
-    gnome-font-viewer \
-    gnome-browser-connector \
-    gnome-online-accounts \
-    gnome-control-center-faces \
-    policykit-desktop-privileges
-"
 
 # The default CLI tools to be installed.
 # All those tools are optional. You can remove any of them if you don't need them.

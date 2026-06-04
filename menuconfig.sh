@@ -350,7 +350,6 @@ menu_input() {
 
 menu_preinstalled_apps() {
     # Parse currently selected apps from the sourced variables
-    # DEFAULT_APPS and DEFAULT_CLI_TOOLS are space-separated after bash sourcing
 
     local app_choices=(
         "gnome-chess|Chess game"

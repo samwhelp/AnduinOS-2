@@ -93,16 +93,6 @@ apt install $INTERACTIVE \
     --no-install-recommends
 judge "Install network manager vpn packages"
 
-print_ok "Installing nautilus..."
-apt install $INTERACTIVE nautilus --no-install-recommends
-judge "Install nautilus"
-
-print_ok "Installing gnome additional applications $DEFAULT_APPS..."
-apt install $INTERACTIVE \
-    gnome-control-center \
-    $DEFAULT_APPS \
-    --no-install-recommends
-judge "Install gnome additional applications"
 
 print_ok "Installing default cli applications..."
 apt install $INTERACTIVE \
