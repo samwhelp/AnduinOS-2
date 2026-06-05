@@ -238,7 +238,7 @@ EOF
     print_ok "Generating manifest for filesystem-desktop..."
     sudo cp -v image/casper/filesystem.manifest image/casper/filesystem.manifest-desktop
     for pkg in $TARGET_PACKAGE_REMOVE; do
-        sudo sed -i "/$pkg/d" image/casper/filesystem.manifest-desktop
+        sudo sed -i "/^$pkg /d" image/casper/filesystem.manifest-desktop
     done
     judge "Generate manifest for filesystem-desktop"
 
@@ -248,8 +248,6 @@ EOF
         -wildcards -b 1M \
         -comp zstd -Xcompression-level 19 \
         -e "var/cache/apt/archives/*" \
-        -e "root/*" \
-        -e "root/.*" \
         -e "tmp/*" \
         -e "tmp/.*" \
         -e "swapfile"

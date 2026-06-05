@@ -41,7 +41,7 @@ echo $TIMEZONE > /etc/timezone
 judge "Configure /etc/timezone"
 
 print_ok "Configuring /etc/localtime to $TIMEZONE..."
-rm /etc/localtime
+rm -f /etc/localtime
 ln -sf /usr/share/zoneinfo/$TIMEZONE /etc/localtime
 judge "Configure /etc/timezone and /etc/localtime"
 

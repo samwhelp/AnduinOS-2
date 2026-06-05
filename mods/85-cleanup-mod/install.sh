@@ -27,12 +27,6 @@ truncate -s 0 /etc/machine-id
 truncate -s 0 /var/lib/dbus/machine-id
 judge "Truncate machine id"
 
-# Remove initctl diversion
-print_ok "Removing diversion..."
-rm /sbin/initctl
-dpkg-divert --rename --remove /sbin/initctl
-judge "Remove diversion"
-
 # Clean bash history and temp files
 print_ok "Removing bash history and temporary files..."
 rm -rf /tmp/* ~/.bash_history
