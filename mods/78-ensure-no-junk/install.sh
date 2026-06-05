@@ -50,6 +50,7 @@ packages=(
     xterm
     software-properties-common
     software-properties-gtk
+    gdb
 )
 
 #whoopsie

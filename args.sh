@@ -307,7 +307,7 @@ export LIVE_UBUNTU_MIRROR="https://mirror.aiursoft.com/ubuntu/"
 # All those tools are optional. You can remove any of them if you don't need them.
 export DEFAULT_CLI_TOOLS="
     curl \
-    vim \
+    vim-tiny \
     nano \
     git \
     net-tools \
@@ -319,7 +319,6 @@ export DEFAULT_CLI_TOOLS="
     smartmontools \
     traceroute \
     whois \
-    nmap \
     fastfetch
     "
 

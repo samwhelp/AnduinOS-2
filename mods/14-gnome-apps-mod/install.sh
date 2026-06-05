@@ -20,7 +20,6 @@ apt install $INTERACTIVE \
     systemd-timesyncd \
     fwupd \
     fwupd-signed \
-    gdb \
     sassc \
     gnome-remote-desktop \
     mesa-vulkan-drivers \
