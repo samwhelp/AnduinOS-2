@@ -16,6 +16,20 @@ apt install $INTERACTIVE \
     --no-install-recommends
 judge "Install locales and resolvconf"
 
-print_ok "Installing $LANGUAGE_PACKS language packs"
-apt install $INTERACTIVE $LANGUAGE_PACKS --no-install-recommends
-judge "Install language packs"
+print_ok "Filtering available language packs..."
+VALID_PACKAGES=""
+for pkg in $LANGUAGE_PACKS; do
+    if apt-get install -s -y "$pkg" >/dev/null 2>&1; then
+        VALID_PACKAGES="$VALID_PACKAGES $pkg"
+    else
+        print_warn "Package $pkg is not installable (no candidate or broken), skipping."
+    fi
+done
+
+print_ok "Installing available language packs..."
+if [ -n "$VALID_PACKAGES" ]; then
+    apt install $INTERACTIVE $VALID_PACKAGES --no-install-recommends
+    judge "Install language packs"
+else
+    print_warn "No language packs were valid for installation."
+fi

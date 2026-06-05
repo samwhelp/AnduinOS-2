@@ -308,11 +308,6 @@ export DEFAULT_CLI_TOOLS="
     vim \
     nano \
     git \
-    build-essential \
-    make \
-    gcc \
-    g++ \
-    dpkg-dev \
     net-tools \
     htop \
     httping \
