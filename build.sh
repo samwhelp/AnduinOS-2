@@ -321,8 +321,14 @@ EOF
         dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
         sudo mkfs.vfat efiboot.img && \
         mkdir efi && \
-        sudo mount efiboot.img efi && \
-        sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram && \
+        sudo mount efiboot.img efi
+
+        if ! sudo grub-install --efi-directory=efi --uefi-secure-boot --removable --no-nvram; then
+            sudo umount efi
+            print_error "grub-install failed!"
+            exit 1
+        fi
+
         sudo umount efi && \
         rm -rf efi
     )
