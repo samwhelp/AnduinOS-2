@@ -11,9 +11,6 @@
 # final system database.
 set -euo pipefail
 
-source /root/mods/shared.sh
-source /root/mods/args.sh
-
 print_ok "Generating dynamic build-time dconf configuration"
 
 # Validate required environment variables
@@ -28,6 +25,7 @@ if [ -z "$CONFIG_WEATHER_LOCATION" ]; then
 fi
 
 # Write dynamic dconf fragment (slot 04 — after system extensions, before per-extension)
+mkdir -p /etc/dconf/db/anduinos.d/
 cat > /etc/dconf/db/anduinos.d/04-dynamic-configs.conf << EOF
 # AnduinOS Dynamic Configuration
 # Auto-generated during ISO build

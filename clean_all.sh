@@ -14,6 +14,7 @@ function clean_all() {
     sudo umount $SCRIPT_DIR/new_building_os/proc || sudo umount -lf $SCRIPT_DIR/new_building_os/proc || true
     sudo umount $SCRIPT_DIR/new_building_os/dev || sudo umount -lf $SCRIPT_DIR/new_building_os/dev || true
     sudo umount $SCRIPT_DIR/new_building_os/run || sudo umount -lf $SCRIPT_DIR/new_building_os/run || true
+    sudo umount $SCRIPT_DIR/image/isolinux/efi || sudo umount -lf $SCRIPT_DIR/image/isolinux/efi || true
     sudo rm -rf $SCRIPT_DIR/new_building_os || true
     sudo rm -rf $SCRIPT_DIR/image || true
     sudo rm -rf $SCRIPT_DIR/dist || true
