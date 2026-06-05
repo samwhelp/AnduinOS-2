@@ -13,5 +13,6 @@ apt install $INTERACTIVE \
     anduinos-desktop \
     anduinos-desktop-apps \
     anduinos-appstore \
-    anduinos-theme
+    anduinos-theme \
+    --install-recommends
 judge "Install anduinos-desktop"
