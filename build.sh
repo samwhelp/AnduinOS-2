@@ -112,6 +112,10 @@ Signed-By: /usr/share/keyrings/anduinos-archive-keyring.gpg
 EOF
     judge "Generate sources"
 
+    print_ok "Enabling apt recommends in chroot..."
+    echo 'APT::Install-Recommends "true";' | sudo tee new_building_os/etc/apt/apt.conf.d/99-enable-recommends > /dev/null
+    judge "Enable apt recommends"
+
     print_ok "Running apt update in chroot..."
     sudo chroot new_building_os apt update
     judge "Apt update in chroot"
