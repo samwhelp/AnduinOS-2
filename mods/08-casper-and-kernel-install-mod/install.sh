@@ -16,6 +16,6 @@ judge "Install live-boot"
 print_ok "Installing kernel..."
 apt install $INTERACTIVE \
     linux-image-generic-hwe-26.04 \
-    linux-headers-generic-hwe-26.04
+    linux-headers-generic-hwe-26.04 \
     --no-install-recommends
 judge "Install kernel"
