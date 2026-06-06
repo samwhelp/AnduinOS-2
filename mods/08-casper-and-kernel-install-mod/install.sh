@@ -13,17 +13,9 @@ apt install $INTERACTIVE \
     --no-install-recommends
 judge "Install live-boot"
 
-# TARGET_KERNEL_PACKAGE=$(apt search linux-image-generic-hwe-* | awk -F'/' '/linux-image-generic-hwe-/ {print $1}' | grep -v '\-edge$' | sort -V | tail -n 1)
-# print_ok "Installing kernel package $TARGET_KERNEL_PACKAGE..."
-# apt install $INTERACTIVE \
-#     thermald \
-#     $TARGET_KERNEL_PACKAGE \
-#     --no-install-recommends
-# judge "Install kernel package"
-
-print_ok "Installing kernel and thermald..."
+print_ok "Installing kernel..."
 apt install $INTERACTIVE \
     linux-image-generic-hwe-26.04 \
-    linux-headers-generic-hwe-26.04 \
-    thermald --no-install-recommends
-judge "Install kernel and thermald"
+    linux-headers-generic-hwe-26.04
+    --no-install-recommends
+judge "Install kernel"
