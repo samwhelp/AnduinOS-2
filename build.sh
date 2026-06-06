@@ -172,8 +172,10 @@ function build_iso() {
     print_ok "Copying kernel files as /casper/vmlinuz and /casper/initrd..."
     # Resolve the distro-maintained symlinks — they always point to the
     # current kernel, so we never pick a stale one left behind by apt.
-    REAL_VMLINUZ=$(readlink -f new_building_os/vmlinuz || readlink -f new_building_os/boot/vmlinuz)
-    REAL_INITRD=$(readlink -f new_building_os/initrd.img || readlink -f new_building_os/boot/initrd.img)
+    REAL_VMLINUZ=$(readlink -f new_building_os/vmlinuz 2>/dev/null)
+    [ -f "$REAL_VMLINUZ" ] || REAL_VMLINUZ=$(readlink -f new_building_os/boot/vmlinuz 2>/dev/null)
+    REAL_INITRD=$(readlink -f new_building_os/initrd.img 2>/dev/null)
+    [ -f "$REAL_INITRD" ] || REAL_INITRD=$(readlink -f new_building_os/boot/initrd.img 2>/dev/null)
     if [ -z "$REAL_VMLINUZ" ] || [ ! -f "$REAL_VMLINUZ" ]; then
         print_error "No kernel found via vmlinuz symlink in new_building_os/"
         exit 1
