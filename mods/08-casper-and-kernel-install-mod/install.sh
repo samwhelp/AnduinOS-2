@@ -2,8 +2,9 @@ set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
 
-print_ok "Installing capser (live-boot)..."
 wait_network
+
+print_ok "Installing capser (live-boot)..."
 apt install $INTERACTIVE \
     casper \
     discover \
@@ -19,3 +20,16 @@ apt install $INTERACTIVE \
     linux-headers-generic-hwe-26.04 \
     --no-install-recommends
 judge "Install kernel"
+
+print_ok "Installing anduinos-desktop (full AnduinOS desktop metapackage)..."
+apt install $INTERACTIVE \
+    anduinos-desktop \
+    anduinos-desktop-apps \
+    anduinos-appstore \
+    anduinos-theme \
+    --install-recommends
+judge "Install anduinos-desktop"
+
+print_ok "Installing AnduinOS installer (Ubiquity + wrapper + slides + bwrap compat)..."
+apt install $INTERACTIVE anduinos-installer-config --no-install-recommends
+judge "Install anduinos-installer-config"
