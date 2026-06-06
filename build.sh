@@ -295,7 +295,6 @@ $TARGET_BUSINESS_NAME is a custom Ubuntu-based Linux distribution that offers a 
 
 This image is built with the following configurations:
 
-- **Language**: $DEFAULT_LANG
 - **Version**: $TARGET_BUILD_VERSION
 - **Date**: $DATE
 
