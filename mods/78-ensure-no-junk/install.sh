@@ -85,6 +85,7 @@ packages=(
 
     # ── Dev tools not needed at runtime ────────────────────────
     gdb
+    build-essential
 )
 
 for pkg in "${packages[@]}"; do
