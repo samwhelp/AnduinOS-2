@@ -202,7 +202,9 @@ fi
 # * [('xkb', 'us'), ('ibus', 'rime')]
 # * [('xkb', 'us'), ('ibus', 'chewing')]
 # * [('xkb', 'us'), ('xkb', 'fr')]
-export CONFIG_INPUT_METHOD="[('xkb', 'us')]"
+# Keyboard layout is set by Ubiquity during install, read from /etc/default/keyboard.
+# Input method (IME) is a per-user preference configured post-install.
+# CONFIG_INPUT_METHOD has been removed — GNOME defaults to system keyboard layout.
 
 #============================
 # Software properties configuration
