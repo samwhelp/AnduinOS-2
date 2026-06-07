@@ -213,11 +213,26 @@ function build_iso() {
     }"
     done <<< "$GRUB_LOCALES"
 
+    # Copy system unicode.pf2 so GRUB can render CJK/Arabic/Thai labels.
+    # Without loadfont, GRUB defaults to an ASCII-only built-in font.
+    print_ok "Preparing GRUB unicode font (for CJK)..."
+    mkdir -p image/isolinux
+    if [ -f /usr/share/grub/unicode.pf2 ]; then
+        cp /usr/share/grub/unicode.pf2 image/isolinux/unicode.pf2
+    elif [ -f /boot/grub/unicode.pf2 ]; then
+        cp /boot/grub/unicode.pf2 image/isolinux/unicode.pf2
+    else
+        print_warn "No unicode.pf2 found, GRUB locale menu will show tofu for non-Latin scripts"
+    fi
+    judge "Prepare GRUB unicode font"
+
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /$TARGET_NAME
 
 insmod all_video
+
+loadfont /boot/grub/unicode.pf2
 
 set default="0"
 set timeout=10
@@ -226,11 +241,11 @@ submenu "$TRY_TEXT" {
 $_TRY_LOCALE_ENTRIES
 }
 
-submenu "📥 Install $TARGET_BUSINESS_NAME" {
+submenu "Install $TARGET_BUSINESS_NAME" {
 $_INSTALL_LOCALE_ENTRIES
 }
 
-submenu "⚙️ Advanced Options..." {
+submenu "Advanced Options..." {
     menuentry "$TRY_TEXT (Safe Graphics)" {
         set gfxpayload=keep
         linux   /casper/vmlinuz boot=casper nopersistent nomodeset ---
@@ -404,6 +419,7 @@ EOF
         -graft-points \
             "/EFI/efiboot.img=isolinux/efiboot.img" \
             "/boot/grub/grub.cfg=isolinux/grub.cfg" \
+            "/boot/grub/unicode.pf2=isolinux/unicode.pf2" \
             "/boot/grub/bios.img=isolinux/bios.img" \
             "."
 
