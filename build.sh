@@ -225,7 +225,7 @@ search --set=root --file /$TARGET_NAME
 
 insmod all_video
 
-loadfont /boot/grub/unicode.pf2
+loadfont /isolinux/unicode.pf2
 
 set default="0"
 set timeout=10
@@ -370,7 +370,7 @@ EOF
         --modules="linux16 linux normal iso9660 biosdisk search font" \
         --locales="" \
         --fonts="" \
-        "boot/grub/grub.cfg=isolinux/grub.cfg"
+        "isolinux/grub.cfg=isolinux/grub.cfg"
     judge "Create BIOS boot image"
 
     print_ok "Creating hybrid boot image on /isolinux/bios.img..."
@@ -407,7 +407,7 @@ EOF
         -m "isolinux/bios.img" \
         -graft-points \
             "/EFI/efiboot.img=isolinux/efiboot.img" \
-            "/boot/grub/grub.cfg=isolinux/grub.cfg" \
+            "isolinux/grub.cfg=isolinux/grub.cfg" \
             "/boot/grub/unicode.pf2=isolinux/unicode.pf2" \
             "/boot/grub/bios.img=isolinux/bios.img" \
             "."
