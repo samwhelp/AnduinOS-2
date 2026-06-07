@@ -43,16 +43,17 @@ export LANG=en_US.UTF-8
 export LANGUAGE=en_US:en
 
 # Language pack codes tightly matched with AnduinOS Official Website localizations.
-# This ensures 100% offline coverage for all 22 regions / 19 languages listed on the download portal.
+# This ensures 100% offline coverage for all 28 regions / 25 languages listed on the download portal.
 # Ubiquity will still dynamically fetch unlisted rare languages if chosen during online installation.
 #
 # en: English     de: German      es: Spanish     fr: French      it: Italian
 # pt: Portuguese  ru: Russian     ja: Japanese    ko: Korean      vi: Vietnamese
 # th: Thai        ar: Arabic      nl: Dutch       sv: Swedish     pl: Polish
-# tr: Turkish     ro: Romanian    zh-hans: S-Ch   zh-hant: T-Ch
+# tr: Turkish     ro: Romanian    da: Danish      uk: Ukrainian   id: Indonesian
+# fi: Finnish     hi: Hindi       el: Greek       zh-hans: S-Ch   zh-hant: T-Ch
 # Language pack codes tightly matched with AnduinOS Official Website localizations.
 # This ensures 100% offline coverage for all languages listed on the download portal.
-export LANG_PACK_CODES="en de es fr it pt ru zh-hans ja zh-hant ko vi th ar nl sv pl tr ro"
+export LANG_PACK_CODES="en de es fr it pt ru zh-hans ja zh-hant ko vi th ar nl sv pl tr ro da uk id fi hi el"
 _LP=""
 for _c in $LANG_PACK_CODES; do
     _LP="$_LP language-pack-$_c language-pack-$_c-base language-pack-gnome-$_c language-pack-gnome-$_c-base"
@@ -86,6 +87,12 @@ sv_SE|Svenska
 pl_PL|Polski
 tr_TR|Türkçe
 ro_RO|Română
+da_DK|Dansk
+uk_UA|Українська
+id_ID|Bahasa Indonesia
+fi_FI|Suomi
+hi_IN|हिन्दी
+el_GR|Ελληνικά
 "
 
 #==========================
