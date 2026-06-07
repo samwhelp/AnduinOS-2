@@ -190,12 +190,11 @@ function build_iso() {
     judge "Copy build args to disk"
 
     # Configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
-    TRY_TEXT="Try and Install $TARGET_BUSINESS_NAME"
+    TRY_TEXT="Try or Install $TARGET_BUSINESS_NAME"
     TOGO_TEXT="$TARGET_BUSINESS_NAME To Go (Persistent on USB)"
 
-    # Build locale submenu entries for Try (nopersistent) and Install (only-ubiquity) modes
+    # Build locale submenu entries for Try mode
     _TRY_LOCALE_ENTRIES=""
-    _INSTALL_LOCALE_ENTRIES=""
     while IFS="|" read -r _code _label; do
         [ -z "$_code" ] && continue
         [ -z "$_label" ] && continue
@@ -203,12 +202,6 @@ function build_iso() {
     menuentry \"$_label\" {
         set gfxpayload=keep
         linux   /casper/vmlinuz boot=casper locale=${_code}.UTF-8 nopersistent quiet splash ---
-        initrd  /casper/initrd
-    }"
-        _INSTALL_LOCALE_ENTRIES="$_INSTALL_LOCALE_ENTRIES
-    menuentry \"$_label\" {
-        set gfxpayload=keep
-        linux   /casper/vmlinuz boot=casper locale=${_code}.UTF-8 only-ubiquity quiet splash ---
         initrd  /casper/initrd
     }"
     done <<< "$GRUB_LOCALES"
@@ -239,10 +232,6 @@ set timeout=10
 
 submenu "$TRY_TEXT" {
 $_TRY_LOCALE_ENTRIES
-}
-
-submenu "Install $TARGET_BUSINESS_NAME" {
-$_INSTALL_LOCALE_ENTRIES
 }
 
 submenu "Advanced Options..." {
