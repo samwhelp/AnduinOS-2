@@ -60,6 +60,34 @@ done
 export LANGUAGE_PACKS="${_LP# }"
 unset _LP _c
 
+# GRUB locale submenu entries for the live ISO boot menu.
+# Format: locale_code|Display Label (one entry per line)
+# These are rendered as a submenu under "Try and Install in Other Languages..."
+export GRUB_LOCALES="
+en_US|English (United States)
+en_GB|English (United Kingdom)
+zh_CN|中文 (中国大陆)
+zh_TW|中文 (台灣)
+zh_HK|中文 (香港)
+ja_JP|日本語
+ko_KR|한국어
+vi_VN|Tiếng Việt
+th_TH|ภาษาไทย
+de_DE|Deutsch
+fr_FR|Français
+es_ES|Español
+ru_RU|Русский
+it_IT|Italiano
+pt_PT|Português
+pt_BR|Português (Brasil)
+ar_SA|العربية
+nl_NL|Nederlands
+sv_SE|Svenska
+pl_PL|Polski
+tr_TR|Türkçe
+ro_RO|Română
+"
+
 #==========================
 # OS system information
 #==========================

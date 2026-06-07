@@ -192,6 +192,27 @@ function build_iso() {
     # Configurations are setup in new_building_os/usr/share/initramfs-tools/scripts/casper-bottom/25configure_init
     TRY_TEXT="Try and Install $TARGET_BUSINESS_NAME"
     TOGO_TEXT="$TARGET_BUSINESS_NAME To Go (Persistent on USB)"
+
+    # Build locale submenu entries for Try (nopersistent) and Install (only-ubiquity) modes
+    _TRY_LOCALE_ENTRIES=""
+    _INSTALL_LOCALE_ENTRIES=""
+    while IFS="|" read -r _code _label; do
+        [ -z "$_code" ] && continue
+        [ -z "$_label" ] && continue
+        _TRY_LOCALE_ENTRIES="$_TRY_LOCALE_ENTRIES
+    menuentry \"$_label\" {
+        set gfxpayload=keep
+        linux   /casper/vmlinuz boot=casper locale=${_code}.UTF-8 nopersistent quiet splash ---
+        initrd  /casper/initrd
+    }"
+        _INSTALL_LOCALE_ENTRIES="$_INSTALL_LOCALE_ENTRIES
+    menuentry \"$_label\" {
+        set gfxpayload=keep
+        linux   /casper/vmlinuz boot=casper locale=${_code}.UTF-8 only-ubiquity quiet splash ---
+        initrd  /casper/initrd
+    }"
+    done <<< "$GRUB_LOCALES"
+
     cat << EOF > image/isolinux/grub.cfg
 
 search --set=root --file /$TARGET_NAME
@@ -201,35 +222,31 @@ insmod all_video
 set default="0"
 set timeout=10
 
-menuentry "$TRY_TEXT" {
-   set gfxpayload=keep
-   linux   /casper/vmlinuz boot=casper nopersistent quiet splash ---
-   initrd  /casper/initrd
+submenu "$TRY_TEXT" {
+$_TRY_LOCALE_ENTRIES
 }
 
-menuentry "$TRY_TEXT (Safe Graphics)" {
-    set gfxpayload=keep
-    linux   /casper/vmlinuz boot=casper nopersistent nomodeset ---
-    initrd  /casper/initrd
+submenu "📥 Install $TARGET_BUSINESS_NAME" {
+$_INSTALL_LOCALE_ENTRIES
 }
 
-menuentry "$TOGO_TEXT" {
-   set gfxpayload=keep
-   linux   /casper/vmlinuz boot=casper persistent quiet splash ---
-   initrd  /casper/initrd
-}
-
-menuentry "$TOGO_TEXT (Safe Graphics)" {
-    set gfxpayload=keep
-    linux   /casper/vmlinuz boot=casper persistent nomodeset ---
-    initrd  /casper/initrd
+submenu "⚙️ Advanced Options..." {
+    menuentry "$TRY_TEXT (Safe Graphics)" {
+        set gfxpayload=keep
+        linux   /casper/vmlinuz boot=casper nopersistent nomodeset ---
+        initrd  /casper/initrd
+    }
+    menuentry "$TOGO_TEXT" {
+       set gfxpayload=keep
+       linux   /casper/vmlinuz boot=casper persistent quiet splash ---
+       initrd  /casper/initrd
+    }
 }
 
 if [ "\$grub_platform" == "efi" ]; then
     menuentry "Boot from next volume" {
         exit 1
     }
-
     menuentry "UEFI Firmware Settings" {
         fwsetup
     }
