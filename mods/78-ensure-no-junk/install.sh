@@ -11,7 +11,68 @@ EXIT_IF_UNNECESSARY_PACKAGE_FOUND=1
 
 print_ok "Purging unnecessary packages"
 packages=(
+    # ── Ubuntu desktop metapackages ────────────────────────────
+    ubuntu-desktop
+    ubuntu-desktop-minimal
+
+    # ── Snap ecosystem ─────────────────────────────────────────
+    snapd
+    snap
+    snap-store
+
+    # ── Ubuntu session & branding ──────────────────────────────
+    ubuntu-session
+    yaru-theme-gnome-shell
+    yaru-theme-unity
+    yaru-theme-icon
+    yaru-theme-gtk
+    ubuntu-wallpapers
+    ubuntu-wallpaper
+
+    # ── Ubuntu Pro / upgrader / telemetry ──────────────────────
+    ubuntu-pro-client
+    ubuntu-advantage-desktop-daemon
+    ubuntu-advantage-tools
+    ubuntu-pro-client-l10n
+    ubuntu-release-upgrader-core
+    ubuntu-release-upgrader-gtk
+    update-notifier
+    update-notifier-common
+    update-manager
+    update-manager-core
+    apport
+    popularity-contest
+    ubuntu-report
+
+    # ── Ubuntu GNOME extensions (AnduinOS ships own versions) ─
+    gnome-shell-ubuntu-extensions
+    gnome-shell-extension-ubuntu-dock
+    gnome-shell-extension-appindicator
+    gnome-shell-extension-dash-to-panel
+    gnome-shell-extension-desktop-icons-ng
+    gnome-shell-extension-gtk4-desktop-icons-ng
+
+    # ── Packages replaced by AnduinOS forks ───────────────────
+    firefox
+    software-properties-common
+    software-properties-gtk
+    firmware-sof-signed
+    alsa-ucm-conf
+    plymouth-theme-spinner
+    fonts-noto-color-emoji
+    ubiquity-slideshow-ubuntu
+
+    # ── LibreOffice (monster package) ──────────────────────────
+    libreoffice-*
+
+    # ── Alternative terminals (AnduinOS uses Ptyxis) ──────────
     alacritty
+    gnome-terminal
+    tilix
+    zutty
+    xterm
+
+    # ── GNOME apps / games (unwanted) ─────────────────────────
     gnome-mahjongg
     gnome-mines
     gnome-sudoku
@@ -20,42 +81,11 @@ packages=(
     gnome-initial-setup
     gnome-photos
     eog
-    tilix
     gnome-contacts
-    gnome-terminal
-    zutty
-    update-notifier
-    update-notifier-common
-    update-manager-core
-    gnome-shell-extension-ubuntu-dock
-    libreoffice-*
-    yaru-theme-unity
-    yaru-theme-icon
-    yaru-theme-gtk
-    ubuntu-session
-    apport
-    ubuntu-pro-client
-    ubuntu-advantage-desktop-daemon
-    ubuntu-advantage-tools
-    ubuntu-pro-client-l10n
-    ubuntu-release-upgrader-core
-    ubuntu-wallpapers
-    ubuntu-desktop
-    ubuntu-desktop-minimal
-    popularity-contest
-    ubuntu-report
-    ubuntu-wallpaper
-    apport
-    snapd
-    snap
-    snap-store
-    xterm
-    software-properties-common
-    software-properties-gtk
+
+    # ── Dev tools not needed at runtime ────────────────────────
     gdb
 )
-
-#whoopsie
 
 for pkg in "${packages[@]}"; do
     if dpkg -l "$pkg" 2>/dev/null | grep -q '^ii'; then
