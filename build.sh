@@ -225,7 +225,9 @@ search --set=root --file /$TARGET_NAME
 
 insmod all_video
 
+insmod gfxterm
 loadfont /isolinux/unicode.pf2
+terminal_output gfxterm
 
 set default="0"
 set timeout=10
@@ -366,8 +368,8 @@ EOF
     grub-mkstandalone \
         --format=i386-pc \
         --output=isolinux/core.img \
-        --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls font" \
-        --modules="linux16 linux normal iso9660 biosdisk search font" \
+        --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls font gfxterm all_video" \
+        --modules="linux16 linux normal iso9660 biosdisk search font gfxterm all_video" \
         --locales="" \
         --fonts="" \
         "boot/grub/grub.cfg=isolinux/grub.cfg"
