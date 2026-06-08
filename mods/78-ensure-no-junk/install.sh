@@ -59,7 +59,6 @@ packages=(
     firmware-sof-signed
     alsa-ucm-conf
     plymouth-theme-spinner
-    fonts-noto-color-emoji
     ubiquity-slideshow-ubuntu
 
     # ── LibreOffice (monster package) ──────────────────────────
