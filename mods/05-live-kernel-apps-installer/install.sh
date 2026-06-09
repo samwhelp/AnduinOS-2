@@ -42,6 +42,7 @@ apt install $INTERACTIVE \
     plymouth-anduinos \
     alsa-ucm-conf-anduinos \
     firmware-sof-anduinos \
+    initramfs-tools \
     --install-recommends
 judge "Install anduinos-desktop"
 
