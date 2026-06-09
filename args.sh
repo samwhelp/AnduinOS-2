@@ -112,7 +112,7 @@ export TARGET_UBUNTU_VERSION="resolute"
 # The default is the Aiursoft mirror.
 # You can change it to any other mirror that you prefer.
 # See https://docs.anduinos.com/Install/Select-Best-Apt-Source.html
-export APT_SOURCE="https://mirror.aiursoft.com/ubuntu/"
+export APT_SOURCE="http://archive.ubuntu.com/ubuntu/"
 
 # This is the name of the target OS.
 # Must be lowercase without special characters and spaces
@@ -155,7 +155,7 @@ export TIMEZONE="America/Los_Angeles"
 
 # This is the APKG server URL for AnduinOS-branded overlay packages.
 # It serves the anduinos-* packages (keyring, apt-config, branding, etc.).
-export APKG_SERVER="https://apkg-dev.aiursoft.com"
+export APKG_SERVER="https://apkg.aiursoft.com"
 
 # GPG certificate name on the APKG server (used to download and verify the repo).
 # The cert is fetched from: $APKG_SERVER/artifacts/certs/$APKG_CERT_NAME
