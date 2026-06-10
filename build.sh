@@ -27,32 +27,11 @@ function clean() {
     judge "Clean up build artifacts"
 }
 
-function setup_host() {
-    print_ok "Setting up host environment..."
-    sudo apt update
-    sudo apt install -y \
-        binutils \
-        debootstrap \
-        squashfs-tools \
-        xorriso \
-        grub-pc-bin \
-        grub-efi-amd64 \
-        grub2-common \
-        mtools \
-        dosfstools \
-        --no-install-recommends
-    judge "Install required tools"
-
+function download_base_system() {
     print_ok "Creating new_building_os directory..."
     sudo mkdir -p new_building_os
     judge "Create build directory"
 
-    print_ok "Setting up mods executable..."
-    find . -type f -name "*.sh" -exec chmod +x {} \;
-    judge "Set up mods executable"
-}
-
-function download_base_system() {
     print_ok "Calling debootstrap to download base debian system..."
     sudo debootstrap  --arch=amd64 --variant=minbase --include=ca-certificates,wget,dbus $TARGET_UBUNTU_VERSION new_building_os $APT_SOURCE
     judge "Download base system"
@@ -97,7 +76,7 @@ EOF
 
     print_ok "Downloading GPG keyring from $cert_url ..."
     sudo mkdir -p new_building_os/usr/share/keyrings
-    curl -sL "$cert_url" | gpg --dearmor | sudo tee "$keyring_path" > /dev/null
+    curl -sL "$cert_url" | sed '1s/^\xEF\xBB\xBF//' | gpg --dearmor | sudo tee "$keyring_path" > /dev/null
     judge "Download and dearmor keyring"
 
     print_ok "Generating anduinos.sources for $APKG_SERVER (suite: $TARGET_UBUNTU_VERSION-addon)..."
@@ -215,13 +194,7 @@ function build_iso() {
     # Without loadfont, GRUB defaults to an ASCII-only built-in font.
     print_ok "Preparing GRUB unicode font (for CJK)..."
     mkdir -p image/isolinux
-    if [ -f /usr/share/grub/unicode.pf2 ]; then
-        cp /usr/share/grub/unicode.pf2 image/isolinux/unicode.pf2
-    elif [ -f /boot/grub/unicode.pf2 ]; then
-        cp /boot/grub/unicode.pf2 image/isolinux/unicode.pf2
-    else
-        print_warn "No unicode.pf2 found, GRUB locale menu will show tofu for non-Latin scripts"
-    fi
+    cp /usr/share/grub/unicode.pf2 image/isolinux/unicode.pf2
     judge "Prepare GRUB unicode font"
 
     cat << EOF > image/isolinux/grub.cfg
@@ -448,7 +421,6 @@ function umount_on_exit() {
 cd $SCRIPT_DIR
 bind_signal
 clean
-setup_host
 download_base_system
 mount_folders
 setup_apt
