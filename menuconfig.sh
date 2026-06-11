@@ -98,13 +98,9 @@ edit_build() {
     while true; do
         result=""
         menubox "Build Options" "Select to edit:" \
-            "timezone"  "Chroot timezone       [$(get TIMEZONE)]" \
             "interactive" "Apt interactive       [$(get INTERACTIVE)]" \
             "back"      "< Back"
         case "$result" in
-            timezone)
-                inputbox "Timezone" "Timezone for chroot (e.g. America/Los_Angeles):" "$(get TIMEZONE)" || continue
-                set_val TIMEZONE "$result" ;;
             interactive)
                 local cur="$(get INTERACTIVE)"
                 local next="-y"

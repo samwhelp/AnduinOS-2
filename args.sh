@@ -142,14 +142,6 @@ export TARGET_PACKAGE_REMOVE="
 "
 
 #============================
-# Time zone configuration
-#============================
-
-# The timezone for the new OS being built (In chroot environment)
-# To view available options, run: `ls /usr/share/zoneinfo/`
-export TIMEZONE="America/Los_Angeles"
-
-#============================
 # AnduinOS APKG server configuration
 #============================
 
