@@ -78,17 +78,28 @@ edit_repos() {
             "apt"       "APT mirror            [$(get APT_SOURCE)]" \
             "apkg"      "APKG server           [$(get APKG_SERVER)]" \
             "cert"      "APKG cert name        [$(get APKG_CERT_NAME)]" \
+            "aptcfg"    "APT config package    [$(get APT_CONFIG_PACKAGE)]" \
             "back"      "< Back"
         case "$result" in
             apt)
                 inputbox "APT Mirror" "Ubuntu mirror URL:" "$(get APT_SOURCE)" || continue
                 set_val APT_SOURCE "$result" ;;
             apkg)
-                inputbox "APKG Server" "AnduinOS overlay packages server:" "$(get APKG_SERVER)" || continue
-                set_val APKG_SERVER "$result" ;;
+                local choice
+                choice=$($DIALOG --title "APKG Server" --menu "Choose:" 0 0 2 \
+                    "https://packages.anduinos.com"      "Production" \
+                    "https://apkg-dev.aiursoft.com"      "Development" 3>&1 1>&2 2>&3) && set_val APKG_SERVER "$choice"
+                ;;
             cert)
                 inputbox "APKG Cert" "GPG certificate name:" "$(get APKG_CERT_NAME)" || continue
                 set_val APKG_CERT_NAME "$result" ;;
+            aptcfg)
+                local cur="$(get APT_CONFIG_PACKAGE)"
+                local choice
+                choice=$($DIALOG --title "APT Config Package" --menu "Choose:" 0 0 2 \
+                    "anduinos-apt-config"     "Production" \
+                    "anduinos-apt-config-dev" "Development" 3>&1 1>&2 2>&3) && set_val APT_CONFIG_PACKAGE "$choice"
+                ;;
             back|"") return ;;
         esac
     done

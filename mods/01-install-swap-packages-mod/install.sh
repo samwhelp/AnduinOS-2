@@ -8,7 +8,7 @@ set -u                  # treat unset variable as error
 
 print_ok "Installing AnduinOS APT configuration and keyring packages..."
 apt install $INTERACTIVE \
-    anduinos-apt-config \
+    $APT_CONFIG_PACKAGE \
     anduinos-archive-keyring \
     base-files
 judge "Install AnduinOS basic packages"
