@@ -192,9 +192,11 @@ function build_iso() {
 
     # Copy system unicode.pf2 so GRUB can render CJK/Arabic/Thai labels.
     # Without loadfont, GRUB defaults to an ASCII-only built-in font.
+    # Placed in both paths: isolinux (BIOS) and boot/grub/fonts (UEFI standard).
     print_ok "Preparing GRUB unicode font (for CJK)..."
-    mkdir -p image/isolinux
+    mkdir -p image/isolinux image/boot/grub/fonts
     cp /usr/share/grub/unicode.pf2 image/isolinux/unicode.pf2
+    cp /usr/share/grub/unicode.pf2 image/boot/grub/fonts/unicode.pf2
     judge "Prepare GRUB unicode font"
 
     cat << EOF > image/isolinux/grub.cfg
@@ -202,10 +204,13 @@ function build_iso() {
 search --set=root --file /$TARGET_NAME
 
 insmod all_video
-
 insmod gfxterm
-loadfont /isolinux/unicode.pf2
-terminal_output gfxterm
+insmod font
+if loadfont /boot/grub/fonts/unicode.pf2 ; then
+    terminal_output gfxterm
+elif loadfont /isolinux/unicode.pf2 ; then
+    terminal_output gfxterm
+fi
 
 set default="0"
 set timeout=10
@@ -368,6 +373,7 @@ EOF
     print_ok "Creating iso image on $SCRIPT_DIR/$TARGET_NAME.iso..."
     sudo xorriso \
         -as mkisofs \
+        -r -J \
         -iso-level 3 \
         -full-iso9660-filenames \
         -volid "$TARGET_NAME" \
@@ -388,7 +394,6 @@ EOF
         -graft-points \
             "/EFI/efiboot.img=isolinux/efiboot.img" \
             "/boot/grub/grub.cfg=isolinux/grub.cfg" \
-            "/boot/grub/unicode.pf2=isolinux/unicode.pf2" \
             "/boot/grub/bios.img=isolinux/bios.img" \
             "."
 
