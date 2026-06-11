@@ -31,6 +31,11 @@ truncate -s 0 /etc/machine-id || true
 truncate -s 0 /var/lib/dbus/machine-id || true
 judge "Truncate machine id"
 
+# Remove timezone files (systemd.timezone= on kernel cmdline sets them at boot)
+print_ok "Removing timezone files..."
+rm -f /etc/localtime /etc/timezone || true
+judge "Remove timezone files"
+
 # Clean bash history and temp files
 print_ok "Removing bash history and temporary files..."
 find /tmp -mindepth 1 -delete 2>/dev/null || true

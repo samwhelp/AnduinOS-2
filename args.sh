@@ -78,7 +78,7 @@ ru_RU|Русский
 it_IT|Italiano
 pt_PT|Português
 pt_BR|Português (Brasil)
-ar_SA|العربية
+ar_SA|Arabic
 nl_NL|Nederlands
 sv_SE|Svenska
 pl_PL|Polski
@@ -88,8 +88,8 @@ da_DK|Dansk
 uk_UA|Українська
 id_ID|Bahasa Indonesia
 fi_FI|Suomi
-hi_IN|हिन्दी
-el_GR|Ελληνικά
+hi_IN|Hindi
+el_GR|Greek
 "
 
 #==========================
