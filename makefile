@@ -4,7 +4,9 @@ SHELL         := /usr/bin/env bash
 
 DEPS := \
   binutils \
+  curl \
   debootstrap \
+  gnupg \
   squashfs-tools \
   xorriso \
   grub-pc-bin \
