@@ -66,11 +66,11 @@ en_US|English (United States)
 en_GB|English (United Kingdom)
 zh_CN|中文 (中国大陆)
 zh_TW|中文 (台灣)
-zh_HK|中文 (香港)
+zh_HK|中文 (Hong Kong)
 ja_JP|日本語
 ko_KR|한국어
-vi_VN|Tiếng Việt
-th_TH|ภาษาไทย
+vi_VN|Vietnamese
+th_TH|Thai
 de_DE|Deutsch
 fr_FR|Français
 es_ES|Español
