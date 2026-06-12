@@ -224,7 +224,7 @@ function build_iso() {
         linux   /casper/vmlinuz boot=casper locale=${_code}.UTF-8 timezone=${_tz} systemd.timezone=${_tz} nopersistent quiet splash ---
         initrd  /casper/initrd
     }"
-    done <<< "$GRUB_LOCALES"
+    done <<< "$SUPPORTED_LOCALES"
 
     # Copy system unicode.pf2 so GRUB can render CJK/Arabic/Thai labels.
     # Without loadfont, GRUB defaults to an ASCII-only built-in font.

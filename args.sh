@@ -61,7 +61,7 @@ unset _LP _c
 # 28 entries — one per website language. Rendered under
 # "Try and Install in Other Languages..." on the live ISO boot screen.
 # Format: locale_code|Display Label
-export GRUB_LOCALES="
+export SUPPORTED_LOCALES="
 en_US|English (United States)
 en_GB|English (United Kingdom)
 zh_CN|中文 (中国大陆)

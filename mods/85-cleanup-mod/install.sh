@@ -12,6 +12,7 @@ judge "Clean up /root/"
 # Clean up apt cache
 print_ok "Cleaning up apt cache..."
 find /var/cache/apt/archives -mindepth 1 -delete 2>/dev/null || true
+rm -f /var/cache/apt/pkgcache.bin /var/cache/apt/srcpkgcache.bin || true
 judge "Clean up apt cache"
 
 # Clean up apt lists (save ~50-80MB in the squashfs; the installed system
