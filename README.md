@@ -10,6 +10,8 @@
 
 AnduinOS is a custom Ubuntu-based Linux distribution that offers a familiar and easy-to-use experience for anyone moving to Linux.
 
+If you are looking for the source code of AnduinOS 1, please check the [AnduinOS 1 repository](https://github.com/anduin2017/anduinos).
+
 [Download AnduinOS](https://www.anduinos.com/)
 
 ![Screenshot](./screenshot.png)
