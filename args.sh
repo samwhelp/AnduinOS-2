@@ -64,30 +64,30 @@ unset _LP _c
 export SUPPORTED_LOCALES="
 en_US|English (United States)
 en_GB|English (United Kingdom)
-zh_CN|中文 (中国大陆)
-zh_TW|中文 (台灣)
-zh_HK|中文 (Hong Kong)
-ja_JP|日本語
-ko_KR|한국어
+zh_CN|Chinese (China Mainland)
+zh_TW|Chinese (Taiwan)
+zh_HK|Chinese (Hong Kong)
+ja_JP|Japanese
+ko_KR|Korean
 vi_VN|Vietnamese
 th_TH|Thai
-de_DE|Deutsch
-fr_FR|Français
-es_ES|Español
-ru_RU|Русский
-it_IT|Italiano
-pt_PT|Português
-pt_BR|Português (Brasil)
+de_DE|German
+fr_FR|French
+es_ES|Spanish
+ru_RU|Russian
+it_IT|Italian
+pt_PT|Portuguese
+pt_BR|Portuguese (Brazil)
 ar_SA|Arabic
-nl_NL|Nederlands
-sv_SE|Svenska
-pl_PL|Polski
-tr_TR|Türkçe
-ro_RO|Română
-da_DK|Dansk
-uk_UA|Українська
-id_ID|Bahasa Indonesia
-fi_FI|Suomi
+nl_NL|Dutch
+sv_SE|Swedish
+pl_PL|Polish
+tr_TR|Turkish
+ro_RO|Romanian
+da_DK|Danish
+uk_UA|Ukrainian
+id_ID|Indonesian
+fi_FI|Finnish
 hi_IN|Hindi
 el_GR|Greek
 "
@@ -146,10 +146,10 @@ export TARGET_PACKAGE_REMOVE="
 #============================
 
 # AnduinOS APT config package name (can also be anduinos-apt-config-dev).
-export APT_CONFIG_PACKAGE="anduinos-apt-config"
+export APT_CONFIG_PACKAGE="anduinos-apt-config-dev"
 
 # APKG server URL for AnduinOS-branded overlay packages (dev: apkg-dev.aiursoft.com).
-export APKG_SERVER="https://packages.anduinos.com"
+export APKG_SERVER="https://apkg-dev.aiursoft.com"
 
 # GPG certificate name on the APKG server (used to download and verify the repo).
 # The cert is fetched from: $APKG_SERVER/artifacts/certs/$APKG_CERT_NAME
