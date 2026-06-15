@@ -146,10 +146,10 @@ export TARGET_PACKAGE_REMOVE="
 #============================
 
 # AnduinOS APT config package name (can also be anduinos-apt-config-dev).
-export APT_CONFIG_PACKAGE="anduinos-apt-config-dev"
+export APT_CONFIG_PACKAGE="anduinos-apt-config"
 
 # APKG server URL for AnduinOS-branded overlay packages (dev: apkg-dev.aiursoft.com).
-export APKG_SERVER="https://apkg-dev.aiursoft.com"
+export APKG_SERVER="https://packages.aiursoft.com/"
 
 # GPG certificate name on the APKG server (used to download and verify the repo).
 # The cert is fetched from: $APKG_SERVER/artifacts/certs/$APKG_CERT_NAME
