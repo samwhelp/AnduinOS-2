@@ -89,6 +89,10 @@ Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 EOF
     judge "Set up Ubuntu apt sources"
 
+    # Remove stale legacy-format sources.list (debootstrap artifact).
+    # Ubuntu 24.04+ uses deb822 .sources files in sources.list.d/ instead.
+    sudo rm -f new_building_os/etc/apt/sources.list
+
     print_ok "Setting up AnduinOS APKG apt source in chroot..."
 
     local keyring_path="new_building_os/usr/share/keyrings/anduinos-archive-keyring.gpg"
