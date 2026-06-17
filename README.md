@@ -24,7 +24,7 @@
 | -------- |
 | [AnduinOS-2](https://github.com/AiursoftWeb/AnduinOS-2) |
 
-* [More...](https://samwhelp.github.io/AnduinOS-2/read/link.html#source)
+* [More Link...](https://samwhelp.github.io/AnduinOS-2/read/link.html#source)
 
 
 
