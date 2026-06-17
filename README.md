@@ -11,7 +11,30 @@
 
 ## Subject
 
+* [Upstream](#upstream)
+* [Branch](#branch)
 * [Link](#link)
+
+
+
+
+## Upstream
+
+| Upstream |
+| -------- |
+| [AnduinOS-2](https://github.com/AiursoftWeb/AnduinOS-2) |
+
+* [More...](https://samwhelp.github.io/AnduinOS-2/read/link.html#source)
+
+
+
+
+## Branch
+
+| Branch | Introduction |
+| ------ | ------------ |
+| [mykeybind](https://github.com/samwhelp/AnduinOS-2/tree/mykeybind) | my keybind |
+| [respin](https://github.com/samwhelp/AnduinOS-2/tree/respin) | mykeybind and add more package and config (like: fzf, variety, fcitx5-chewing...) |
 
 
 
