@@ -17,6 +17,7 @@ parent: Branch
 
 * [Clone](#clone)
 * [Build](#build)
+* [Custom Modules](#custom-modules)
 
 
 
@@ -37,3 +38,15 @@ cd AnduinOS-2-main-respin
 
 make
 ```
+
+
+
+
+## Custom Modules
+
+| Custom Modules | Introduction |
+| -------------- | ------------ |
+| [master-package-install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-package-install) | for install extra packages |
+| [master-file-install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install) | for install extra files |
+| [base-dconf-db-update](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-dconf-db-update) |  |
+| [base-gsettings-schema-compile](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-gsettings-schema-compile) |  |
