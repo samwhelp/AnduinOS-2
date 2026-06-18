@@ -17,8 +17,8 @@ parent: Branch
 
 * [Clone](#clone)
 * [Build](#build)
-* [Custom Modules](#custom-modules)
 * [Rundown](#rundown)
+* [Custom Modules](#custom-modules)
 
 
 
@@ -43,6 +43,16 @@ make
 
 
 
+## Rundown
+
+| Rundown |
+| ------- |
+| [install_all_mods.txt](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/install_all_mods.txt) |
+| [install_all_mods.sh](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/install_all_mods.sh) |
+
+
+
+
 ## Custom Modules
 
 | Custom Modules | Introduction |
@@ -51,13 +61,3 @@ make
 | [master-file-install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install) | for install extra files |
 | [base-dconf-db-update](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-dconf-db-update) |  |
 | [base-gsettings-schema-compile](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-gsettings-schema-compile) |  |
-
-
-
-
-## Rundown
-
-| Rundown |
-| ------- |
-| [install_all_mods.txt](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/install_all_mods.txt) |
-| [install_all_mods.sh](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/install_all_mods.sh) |
