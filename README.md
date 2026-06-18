@@ -33,8 +33,8 @@
 
 | Branch | Introduction |
 | ------ | ------------ |
-| [mykeybind](https://github.com/samwhelp/AnduinOS-2/tree/mykeybind) | my keybind |
-| [respin](https://github.com/samwhelp/AnduinOS-2/tree/respin) | mykeybind and add more package and config (like: fzf, variety, fcitx5-chewing...) |
+| [main-mykeybind](https://github.com/samwhelp/AnduinOS-2/tree/main-mykeybind) | my keybind |
+| [main-respin](https://github.com/samwhelp/AnduinOS-2/tree/main-respin) | mykeybind and add more package and config (fzf, variety, fcitx5-chewing ...) |
 
 
 
