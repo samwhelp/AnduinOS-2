@@ -21,7 +21,7 @@ parent: Branch
 * [Rundown](#rundown)
 * [Custom Modules](#custom-modules)
 * [Config Files](#config-files)
-* [Package Installation List](#Package-installation-list)
+* [Package Installation List](#package-installation-list)
 
 
 
