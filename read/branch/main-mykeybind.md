@@ -15,12 +15,20 @@ parent: Branch
 
 ## Subject
 
+* [Environment](#environment)
 * [Clone](#clone)
 * [Build](#build)
 * [Rundown](#rundown)
 * [Custom Modules](#custom-modules)
 * [Config Files](#config-files)
 * [Package Installation List](#Package-installation-list)
+
+
+
+
+## Environment
+
+* Ubuntu 26.04
 
 
 
