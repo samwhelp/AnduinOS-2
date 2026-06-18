@@ -19,6 +19,7 @@ parent: Branch
 * [Build](#build)
 * [Rundown](#rundown)
 * [Custom Modules](#custom-modules)
+* [Config Files](#config-files)
 
 
 
@@ -61,3 +62,14 @@ make
 | [master-file-install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install) | for install extra files |
 | [base-dconf-db-update](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-dconf-db-update) |  |
 | [base-gsettings-schema-compile](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-gsettings-schema-compile) |  |
+
+
+
+
+## Config Files
+
+| Config Files |
+| ------------ |
+| [~/.config](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install/asset/overlay/etc/skel/.config) |
+| [/etc/dconf/db/anduinos.d](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install/asset/overlay/etc/dconf/db/anduinos.d) |
+| [/usr/share/glib-2.0/schemas](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install/asset/overlay/usr/share/glib-2.0/schemas) |
