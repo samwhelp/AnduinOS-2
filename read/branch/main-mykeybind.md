@@ -20,6 +20,7 @@ parent: Branch
 * [Rundown](#rundown)
 * [Custom Modules](#custom-modules)
 * [Config Files](#config-files)
+* [Package Installation List](#Package-installation-list)
 
 
 
@@ -72,3 +73,10 @@ make
 | ------------ |
 | [/etc/dconf/db/anduinos.d](https://github.com/samwhelp/AnduinOS-2/tree/main-mykeybind/mods/master-file-install/asset/overlay/etc/dconf/db/anduinos.d) |
 | [/usr/share/glib-2.0/schemas](https://github.com/samwhelp/AnduinOS-2/tree/main-mykeybind/mods/master-file-install/asset/overlay/usr/share/glib-2.0/schemas) |
+
+
+
+
+## Package Installation List
+
+> Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/part-mykeybind/mods/master-package-install/asset/package/install)
