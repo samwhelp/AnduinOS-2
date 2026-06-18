@@ -22,6 +22,7 @@ parent: Branch
 * [Custom Modules](#custom-modules)
 * [Config Files](#config-files)
 * [Package Installation List](#package-installation-list)
+* [Notice](#notice)
 
 
 
@@ -72,6 +73,8 @@ make
 | [base-dconf-db-update](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-dconf-db-update) |  |
 | [base-gsettings-schema-compile](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/base-gsettings-schema-compile) |  |
 
+* See the [Notice](#notice)
+
 
 
 
@@ -89,3 +92,10 @@ make
 ## Package Installation List
 
 > Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-package-install/asset/package/install)
+
+
+
+
+## Notice
+
+> I [created](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install/asset/overlay/etc) two file `/etc/localtime` and `/etc/timezone`. Therefore, I changed the relevant code in the [file: mods/85-cleanup-mod/install.sh](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/85-cleanup-mod/install.sh#L36-L39) into comments.
