@@ -80,4 +80,4 @@ make
 
 ## Package Installation List
 
-> Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/part-respin/mods/master-package-install/asset/package/install)
+> Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-package-install/asset/package/install)

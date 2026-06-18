@@ -79,4 +79,4 @@ make
 
 ## Package Installation List
 
-> Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/part-mykeybind/mods/master-package-install/asset/package/install)
+> Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-mykeybind/mods/master-package-install/asset/package/install)
