@@ -22,7 +22,7 @@ parent: Branch
 * [Rundown](#rundown)
 * [Custom Modules](#custom-modules)
 * [Config Files](#config-files)
-* [Package Installation List](#package-installation-list)
+* [Package Install List](#package-install-list)
 * [Notice](#notice)
 
 
@@ -103,7 +103,7 @@ make
 
 
 
-## Package Installation List
+## Package Install List
 
 > Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-package-install/asset/package/install)
 
