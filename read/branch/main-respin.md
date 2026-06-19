@@ -24,6 +24,7 @@ parent: Branch
 * [Config Files](#config-files)
 * [Package Install List](#package-install-list)
 * [Notice](#notice)
+* [Discussions](#discussions)
 
 
 
@@ -113,3 +114,10 @@ make
 ## Notice
 
 > I [created](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-file-install/asset/overlay/etc) two file `/etc/localtime` and `/etc/timezone`. Therefore, I changed the relevant code in the [file: mods/85-cleanup-mod/install.sh](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/85-cleanup-mod/install.sh#L36-L39) into comments.
+
+
+
+
+## Discussions
+
+* [#352 - Custom AnduinOS-2 iso build script](https://github.com/Anduin2017/AnduinOS/discussions/352)

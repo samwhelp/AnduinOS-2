@@ -23,6 +23,7 @@ parent: Branch
 * [Custom Modules](#custom-modules)
 * [Config Files](#config-files)
 * [Package Install List](#package-install-list)
+* [Discussions](#discussions)
 
 
 
@@ -109,3 +110,10 @@ make
 ## Package Install List
 
 > Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-mykeybind/mods/master-package-install/asset/package/install)
+
+
+
+
+## Discussions
+
+* [#352 - Custom AnduinOS-2 iso build script](https://github.com/Anduin2017/AnduinOS/discussions/352)
