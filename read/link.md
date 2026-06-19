@@ -43,5 +43,5 @@ Search: [anduinos](https://github.com/orgs/AiursoftWeb/repositories?q=anduinos)
 
 ## Just the Docs
 
-* [Just the Docs](https://pmarsceill.github.io/just-the-docs/) ([GitHub](https://github.com/pmarsceill/just-the-docs))
+* [Just the Docs](https://just-the-docs.com/) ([GitHub](https://github.com/just-the-docs/just-the-docs))
 * [Demo](https://pmarsceill.github.io/jtd-remote/) ([GitHub](https://github.com/pmarsceill/jtd-remote))
