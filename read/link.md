@@ -43,5 +43,7 @@ Search: [anduinos](https://github.com/orgs/AiursoftWeb/repositories?q=anduinos)
 
 ## Just the Docs
 
-* [Just the Docs](https://just-the-docs.com/) ([GitHub](https://github.com/just-the-docs/just-the-docs))
-* [Demo](https://just-the-docs.github.io/just-the-docs-template/) ([GitHub](https://github.com/just-the-docs/just-the-docs-template))
+| Link | GitHub |
+| ---- | ------ |
+| [Just the Docs](https://just-the-docs.com/) | [GitHub](https://github.com/just-the-docs/just-the-docs) |
+| [Demo](https://just-the-docs.github.io/just-the-docs-template/) | [GitHub](https://github.com/just-the-docs/just-the-docs-template) |
