@@ -52,7 +52,7 @@ sudo apt-get install git make
 
 ## Clone
 
-run git clone branch main-mykeybind
+run to clone branch main-mykeybind
 
 ``` sh
 git clone -b main-mykeybind https://github.com/samwhelp/AnduinOS-2 AnduinOS-2-main-mykeybind

@@ -48,7 +48,7 @@ sudo apt-get install git make
 
 ## Clone
 
-run git clone branch main-respin
+run to clone branch main-respin
 
 ``` sh
 git clone -b main-respin https://github.com/samwhelp/AnduinOS-2 AnduinOS-2-main-respin
