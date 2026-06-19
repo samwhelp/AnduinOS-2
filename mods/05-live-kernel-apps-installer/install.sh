@@ -46,10 +46,6 @@ apt install $INTERACTIVE \
     --install-recommends
 judge "Install anduinos-desktop"
 
-print_ok "Finalizing dconf database..."
-dconf update
-judge "Final dconf update"
-
 print_ok "Installing AnduinOS installer (Ubiquity + wrapper + slides + bwrap compat)..."
 apt install $INTERACTIVE anduinos-installer-config --no-install-recommends
 judge "Install anduinos-installer-config"
