@@ -16,6 +16,7 @@ parent: Branch
 ## Subject
 
 * [Environment](#environment)
+* [Prepare](#prepare)
 * [Clone](#clone)
 * [Build](#build)
 * [Rundown](#rundown)
@@ -33,7 +34,25 @@ parent: Branch
 
 
 
+## Prepare
+
+
+
+
+## Prepare
+
+Open Terminal , and run to install [git](https://packages.ubuntu.com/resolute/git) and [make](https://packages.ubuntu.com/resolute/make)
+
+``` sh
+sudo apt-get install git make
+```
+
+
+
+
 ## Clone
+
+run git clone branch main-mykeybind
 
 ``` sh
 git clone -b main-mykeybind https://github.com/samwhelp/AnduinOS-2 AnduinOS-2-main-mykeybind
@@ -43,6 +62,8 @@ git clone -b main-mykeybind https://github.com/samwhelp/AnduinOS-2 AnduinOS-2-ma
 
 
 ## Build
+
+run to build iso file
 
 ``` sh
 cd AnduinOS-2-main-mykeybind

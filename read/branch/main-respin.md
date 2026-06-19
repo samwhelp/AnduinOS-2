@@ -16,6 +16,7 @@ parent: Branch
 ## Subject
 
 * [Environment](#environment)
+* [Prepare](#prepare)
 * [Clone](#clone)
 * [Build](#build)
 * [Rundown](#rundown)
@@ -34,7 +35,20 @@ parent: Branch
 
 
 
+## Prepare
+
+Open Terminal , and run to install [git](https://packages.ubuntu.com/resolute/git) and [make](https://packages.ubuntu.com/resolute/make)
+
+``` sh
+sudo apt-get install git make
+```
+
+
+
+
 ## Clone
+
+run git clone branch main-respin
 
 ``` sh
 git clone -b main-respin https://github.com/samwhelp/AnduinOS-2 AnduinOS-2-main-respin
