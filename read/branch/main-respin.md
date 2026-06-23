@@ -116,6 +116,8 @@ make
 
 * [mods/05-live-kernel-apps-installer/install.sh](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/05-live-kernel-apps-installer/install.sh#L26-L45)
 
+> Ubuntu Community Help Wiki / [MetaPackages](https://help.ubuntu.com/community/MetaPackages)
+
 
 
 
