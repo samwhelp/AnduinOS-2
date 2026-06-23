@@ -299,7 +299,7 @@ gnome-shell-extension-accent-user-theme 2.0.0~rc2-1+resolute
 gnome-shell-extension-anduinos-loc 2.0.0~rc2-1+resolute
 gnome-shell-extension-appindicator-anduinos 2.0.0~rc2-1+resolute
 gnome-shell-extension-arcmenu 2.0.0~rc2-1+resolute
-gnome-shell-extension-blur-my-shell 2.0.0~rc2-1+resolute
+gnome-shell-extension-blur-my-shell 2.0.0~rc2-2+resolute
 gnome-shell-extension-clipboard-indicator 2.0.0~rc2-1+resolute
 gnome-shell-extension-customize-ibus 2.0.0~rc2-1+resolute
 gnome-shell-extension-dash-to-panel-anduinos 2.0.0~rc2-1+resolute
