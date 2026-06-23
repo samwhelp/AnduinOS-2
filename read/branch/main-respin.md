@@ -107,7 +107,14 @@ make
 
 ## Package Install List
 
-> Please check the folder [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-package-install/asset/package/install)
+> Please check the folder
+
+* [mods/master-package-install/asset/package/install](https://github.com/samwhelp/AnduinOS-2/tree/main-respin/mods/master-package-install/asset/package/install)
+
+
+> And check the file
+
+* [mods/05-live-kernel-apps-installer/install.sh](https://github.com/samwhelp/AnduinOS-2/blob/main-respin/mods/05-live-kernel-apps-installer/install.sh#L26-L45)
 
 
 
