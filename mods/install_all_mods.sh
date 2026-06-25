@@ -1,11 +1,13 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-#==========================
+
+#=============================
 # Set up the environment
-#==========================
+#=============================
+
 set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
-set -u                  # treat unset variable as error
+#set -u                  # treat unset variable as error
 
 BASE_DIR_PATH="$(dirname "$(readlink -f "$0")")"
 LIBS_DIR_PATH="$BASE_DIR_PATH"
@@ -15,9 +17,10 @@ MODS_DIR_PATH="$BASE_DIR_PATH"
 source "$LIBS_DIR_PATH/args.sh"
 source "$LIBS_DIR_PATH/shared.sh"
 
-#==========================
+#=============================
 # Variables for mods
-#==========================
+#=============================
+
 print_ok "Building variables for mods:"
 
 echo "TARGET_UBUNTU_VERSION=$TARGET_UBUNTU_VERSION"
@@ -27,32 +30,51 @@ echo "TARGET_BUSINESS_NAME=$TARGET_BUSINESS_NAME"
 echo "TARGET_BUILD_VERSION=$TARGET_BUILD_VERSION"
 
 
-#==========================
+
+
+#=============================
+# Option
+#=============================
+
+DEFAULT_RUNDOWN_FILE_NAME="install_all_mods.txt"
+#RUNDOWN_FILE_NAME="$1"
+RUNDOWN_FILE_NAME="${RUNDOWN_FILE_NAME:=$DEFAULT_RUNDOWN_FILE_NAME}"
+
+
+DEFAULT_INSTALL_FILE_NAME="install.sh"
+INSTALL_FILE_NAME="$1"
+INSTALL_FILE_NAME="${INSTALL_FILE_NAME:=$DEFAULT_INSTALL_FILE_NAME}"
+
+
+
+
+#=============================
 # Model / Old
-#==========================
+#=============================
 
 ##
 ## Execute the module based on the folder name.
 ##
 
 function run_mods_by_dirname() {
+	local install_file_name="$INSTALL_FILE_NAME"
 	local mods_dir_path="$MODS_DIR_PATH"
 	for mod in "$mods_dir_path"/*; do
-		if [[ -d "$mod" && -f "$mod/install.sh" ]]; then
+		if [[ -d "$mod" && -f "$mod/$install_file_name" ]]; then
 			print_info "Processing mod: $mod"
 			(
 				cd "$mod" && \
-				chmod +x install.sh && \
-				bash "$mod/install.sh"
+				chmod +x "$install_file_name" && \
+				bash "$mod/$install_file_name"
 			)
 		fi
 	done
 }
 
 
-#==========================
+#=============================
 # Model / New
-#==========================
+#=============================
 
 ##
 ## The install_all_mods.txt file is used to control which modules are executed and their execution order.
@@ -79,13 +101,15 @@ function util_load_list() {
 }
 
 function find_mods_list_via_loader() {
+	local rundown_file_name="$RUNDOWN_FILE_NAME"
 	local mods_dir_path="$MODS_DIR_PATH"
-	util_load_list "$mods_dir_path/install_all_mods.txt"
+	util_load_list "$mods_dir_path/$rundown_file_name"
 }
 
 function find_mods_list_via_cat() {
+	local rundown_file_name="$RUNDOWN_FILE_NAME"
 	local mods_dir_path="$MODS_DIR_PATH"
-	cat "$mods_dir_path/install_all_mods.txt"
+	cat "$mods_dir_path/${rundown_file_name}"
 }
 
 function find_mods_list() {
@@ -95,6 +119,7 @@ function find_mods_list() {
 }
 
 function run_mods_by_list() {
+	local install_file_name="$INSTALL_FILE_NAME"
 	local mods_dir_path="$MODS_DIR_PATH"
 	local mods_list=$(find_mods_list)
 	local mod_name
@@ -103,7 +128,7 @@ function run_mods_by_list() {
 
 	for mod_name in $mods_list; do
 		mod_dir_path="$mods_dir_path/$mod_name"
-		mod_install_file_path="$mod_dir_path/install.sh"
+		mod_install_file_path="$mod_dir_path/$install_file_name"
 
 		if [[ -d "$mod_dir_path" && -x "$mod_install_file_path" ]]; then
 			print_info "Processing mod: $mod_name"
@@ -114,9 +139,9 @@ function run_mods_by_list() {
 }
 
 
-#==========================
+#=============================
 # Main
-#==========================
+#=============================
 
 ##run_mods_by_dirname
 run_mods_by_list
