@@ -1,3 +1,10 @@
+#!/usr/bin/env bash
+
+
+#=============================
+# Set up the environment
+#=============================
+
 set -e                  # exit on error
 set -o pipefail         # exit on pipeline error
 set -u                  # treat unset variable as error
@@ -8,8 +15,13 @@ OVERLAY_DIR_PATH="$ASSET_DIR_PATH/overlay"
 PACKAGE_DIR_PATH="$ASSET_DIR_PATH/package"
 PACKAGE_INSTALL_DIR_PATH="$PACKAGE_DIR_PATH/install"
 
-#print_ok "Master Package Installing..."
 
+print_ok "Master Package Installing..."
+
+
+#=============================
+# Model
+#=============================
 
 function util_load_list() {
 	local file_path="$1"
@@ -60,6 +72,11 @@ function find_package_install_list() {
 	local package_install_list=$(find_package_install_list_via_loader)
 	echo $package_install_list
 }
+
+
+#=============================
+# Main
+#=============================
 
 function master_package_install() {
 	local package_install_list=$(find_package_install_list)
