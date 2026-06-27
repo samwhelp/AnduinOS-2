@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 
 #==========================
 # Color
@@ -19,40 +20,40 @@ export WARNING="${Yellow}[ WARN ]${Font}"
 # Print Colorful Text
 #==========================
 function print_ok() {
-  echo -e "${OK} ${Blue} $1 ${Font}"
+	echo -e "${OK} ${Blue} $1 ${Font}"
 }
 
 function print_info() {
-  echo -e "${INFO} ${Font} $1"
+	echo -e "${INFO} ${Font} $1"
 }
 
 function print_error() {
-  echo -e "${ERROR} ${Red} $1 ${Font}"
+	echo -e "${ERROR} ${Red} $1 ${Font}"
 }
 
 function print_warn() {
-  echo -e "${WARNING} ${Yellow} $1 ${Font}"
+	echo -e "${WARNING} ${Yellow} $1 ${Font}"
 }
 
 function judge() {
-  if [[ 0 -eq $? ]]; then
-    print_ok "$1 succeeded"
-    sleep 0.2
-  else
-    print_error "$1 failed"
-    exit 1
-  fi
+	if [[ 0 -eq $? ]]; then
+		print_ok "$1 succeeded"
+		sleep 0.2
+	else
+		print_error "$1 failed"
+	exit 1
+	fi
 }
 
 function wait_network() {
-    local WGET_OPTS="--spider -q --timeout=5 --tries=1"
+	local WGET_OPTS="--spider -q --timeout=5 --tries=1"
 
-    until wget $WGET_OPTS https://github.com; do
-        echo "Waiting for network (https://github.com) ... ETA: 25s"
-        sleep 1
-    done
+	until wget $WGET_OPTS https://github.com; do
+		echo "Waiting for network (https://github.com) ... ETA: 25s"
+		sleep 1
+	done
 
-    print_ok "Network is online. Continue..."
+	print_ok "Network is online. Continue..."
 }
 
 export -f print_ok print_error print_warn judge wait_network print_info

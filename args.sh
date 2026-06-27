@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
 
 #=================================================
-#           PLEASE READ THIS BEFORE EDITING
+#		   PLEASE READ THIS BEFORE EDITING
 #=================================================
 # This file is used to set the environment variables for the build process.
 # Before building AnduinOS, you should edit this file to customize the build process.
@@ -36,22 +37,22 @@ export LANGUAGE=en_US:en
 # 28 website languages map to 25 language-pack codes.
 # (e.g., en-US/en-GB share 'en', pt-PT/pt-BR share 'pt', zh-TW/zh-HK share 'zh-hant')
 #
-#   en-US English (US)    zh-CN 中文 (CN)       de-DE Deutsch
-#   en-GB English (UK)    zh-TW 中文 (TW)       fr-FR Français
-#                         zh-HK 中文 (HK)       es-ES Español
-#   ja-JP 日本語           ko-KR 한국어          it-IT Italiano
-#   vi-VN Tiếng Việt      th-TH ภาษาไทย        pt-PT Português
-#   ar-SA العربية          nl-NL Nederlands      pt-BR Português (Brasil)
-#   sv-SE Svenska          pl-PL Polski          ru-RU Русский
-#   tr-TR Türkçe           ro-RO Română          da-DK Dansk
-#   uk-UA Українська       id-ID Bahasa Indonesia
-#   fi-FI Suomi            hi-IN हिन्दी          el-GR Ελληνικά
+#   en-US English (US)	zh-CN 中文 (CN)	   de-DE Deutsch
+#   en-GB English (UK)	zh-TW 中文 (TW)	   fr-FR Français
+#						 zh-HK 中文 (HK)	   es-ES Español
+#   ja-JP 日本語		   ko-KR 한국어		  it-IT Italiano
+#   vi-VN Tiếng Việt	  th-TH ภาษาไทย		pt-PT Português
+#   ar-SA العربية		  nl-NL Nederlands	  pt-BR Português (Brasil)
+#   sv-SE Svenska		  pl-PL Polski		  ru-RU Русский
+#   tr-TR Türkçe		   ro-RO Română		  da-DK Dansk
+#   uk-UA Українська	   id-ID Bahasa Indonesia
+#   fi-FI Suomi			hi-IN हिन्दी		  el-GR Ελληνικά
 #
 # All verified present in Ubuntu apt repos.
 export LANG_PACK_CODES="en de es fr it pt ru zh-hans ja zh-hant ko vi th ar nl sv pl tr ro da uk id fi hi el"
 _LP=""
 for _c in $LANG_PACK_CODES; do
-    _LP="$_LP language-pack-$_c language-pack-$_c-base language-pack-gnome-$_c language-pack-gnome-$_c-base"
+	_LP="$_LP language-pack-$_c language-pack-$_c-base language-pack-gnome-$_c language-pack-gnome-$_c-base"
 done
 export LANGUAGE_PACKS="${_LP# }"
 unset _LP _c
@@ -123,7 +124,7 @@ export TARGET_NAME="anduinos"
 export TARGET_BUSINESS_NAME="AnduinOS"
 
 # Version number. Must be in the format of x.y.z
-export TARGET_BUILD_VERSION="2.0.0~rc2"
+export TARGET_BUILD_VERSION="2.0.0"
 
 #===========================
 # Installer customization
@@ -131,14 +132,14 @@ export TARGET_BUILD_VERSION="2.0.0~rc2"
 
 # Packages will be uninstalled during the installation process
 export TARGET_PACKAGE_REMOVE="
-    ubiquity \
-    casper \
-    discover \
-    laptop-detect \
-    os-prober \
-    gparted \
-    anduinos-installer-config \
-    anduinos-bwrap-hack \
+	ubiquity \
+	casper \
+	discover \
+	laptop-detect \
+	os-prober \
+	gparted \
+	anduinos-installer-config \
+	anduinos-bwrap-hack \
 "
 
 #============================
