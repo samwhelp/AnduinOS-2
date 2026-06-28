@@ -20,3 +20,10 @@ BASE_DIR_PATH="$(dirname "$(readlink -f "$0")")"
 #=============================
 
 sudo "$BASE_DIR_PATH/do-build.sh"
+
+
+##
+## change dist owner to current user
+##
+
+[ -d "$BASE_DIR_PATH/dist" ] && sudo chown $(whoami):$(whoami) "$BASE_DIR_PATH/dist" -R
