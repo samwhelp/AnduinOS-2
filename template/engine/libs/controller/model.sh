@@ -39,7 +39,7 @@ function core_var_dump() {
 
 }
 
-core_create_skeleton_dir() {
+function core_create_skeleton_dir() {
 
 	print_info "Create Skeleton Dir"
 	mkdir -p "${WORK_DIR_PATH}"
@@ -589,25 +589,25 @@ function sys_setup_apt_for_anduinos() {
 }
 
 
-function mod_setup_apt_for_core_system () {
+function mod_setup_apt_for_core_system() {
 
 	sys_setup_apt_for_ubuntu
 
 }
 
-function mod_setup_apt_for_base_system () {
+function mod_setup_apt_for_base_system() {
 
 	sys_setup_apt_for_ubuntu
 
 }
 
-function mod_setup_apt_for_basic_system () {
+function mod_setup_apt_for_basic_system() {
 
 	sys_setup_apt_for_anduinos
 
 }
 
-function mod_setup_apt_for_full_system () {
+function mod_setup_apt_for_full_system() {
 
 	sys_setup_apt_for_anduinos
 
