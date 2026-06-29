@@ -39,22 +39,22 @@ function bind_signal() {
 
 function clean() {
 	print_ok "Cleaning up previous build..."
-	sudo umount "$DISTRO_IMG_DIR_PATH/sys" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/sys" || true
-	sudo umount "$DISTRO_IMG_DIR_PATH/proc" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/proc" || true
-	sudo umount "$DISTRO_IMG_DIR_PATH/dev" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/dev" || true
-	sudo umount "$DISTRO_IMG_DIR_PATH/run" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/run" || true
-	sudo rm -rf "$DISTRO_IMG_DIR_PATH" "$DISTRO_ISO_DIR_PATH" || true
+	umount "$DISTRO_IMG_DIR_PATH/sys" || umount -lf "$DISTRO_IMG_DIR_PATH/sys" || true
+	umount "$DISTRO_IMG_DIR_PATH/proc" || umount -lf "$DISTRO_IMG_DIR_PATH/proc" || true
+	umount "$DISTRO_IMG_DIR_PATH/dev" || umount -lf "$DISTRO_IMG_DIR_PATH/dev" || true
+	umount "$DISTRO_IMG_DIR_PATH/run" || umount -lf "$DISTRO_IMG_DIR_PATH/run" || true
+	rm -rf "$DISTRO_IMG_DIR_PATH" "$DISTRO_ISO_DIR_PATH" || true
 	judge "Clean up build artifacts"
 }
 
 function download_base_system() {
 
 	print_info "Creating new_building_os directory..."
-	sudo mkdir -p "$DISTRO_IMG_DIR_PATH"
+	mkdir -p "$DISTRO_IMG_DIR_PATH"
 	judge "Create build directory"
 
 	print_info "Calling debootstrap to download base debian system..."
-	sudo debootstrap  --arch=amd64 --variant=minbase --include=ca-certificates,wget,dbus "$TARGET_UBUNTU_VERSION" "$DISTRO_IMG_DIR_PATH" "$APT_SOURCE"
+	debootstrap  --arch=amd64 --variant=minbase --include=ca-certificates,wget,dbus "$TARGET_UBUNTU_VERSION" "$DISTRO_IMG_DIR_PATH" "$APT_SOURCE"
 	judge "Download base system"
 
 }
@@ -62,32 +62,32 @@ function download_base_system() {
 function mount_folders() {
 
 	print_info "Reloading systemd daemon..."
-	sudo systemctl daemon-reload
+	systemctl daemon-reload
 	judge "Reload systemd daemon"
 
 	print_info "Mounting /dev /run from host to build dir..."
-	sudo mount --bind /dev "$DISTRO_IMG_DIR_PATH/dev"
-	sudo mount --bind /run "$DISTRO_IMG_DIR_PATH/run"
+	mount --bind /dev "$DISTRO_IMG_DIR_PATH/dev"
+	mount --bind /run "$DISTRO_IMG_DIR_PATH/run"
 	judge "Mount /dev /run"
 
 	print_info "Mounting /proc /sys /dev/pts within chroot..."
-	sudo chroot "$DISTRO_IMG_DIR_PATH" mount none -t proc /proc
-	sudo chroot "$DISTRO_IMG_DIR_PATH" mount none -t sysfs /sys
-	sudo chroot "$DISTRO_IMG_DIR_PATH" mount none -t devpts /dev/pts
+	chroot "$DISTRO_IMG_DIR_PATH" mount none -t proc /proc
+	chroot "$DISTRO_IMG_DIR_PATH" mount none -t sysfs /sys
+	chroot "$DISTRO_IMG_DIR_PATH" mount none -t devpts /dev/pts
 	judge "Mount /proc /sys /dev/pts"
 
 	print_info "Copying fulfill scripts to chroot /root/build/mods..."
-	sudo mkdir -p "$DISTRO_IMG_DIR_PATH/root/build"
-	sudo cp -rfT "$LIBS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/libs"
-	sudo cp -rfT "$MODS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/mods"
+	mkdir -p "$DISTRO_IMG_DIR_PATH/root/build"
+	cp -rfT "$LIBS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/libs"
+	cp -rfT "$MODS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/mods"
 
 }
 
 function setup_apt() {
 
 	print_info "Setting up Ubuntu apt sources in chroot..."
-	sudo mkdir -p "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d"
-	sudo tee "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d/ubuntu.sources" > /dev/null <<EOF
+	mkdir -p "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d"
+	tee "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d/ubuntu.sources" > /dev/null <<EOF
 Types: deb
 URIs: $APT_SOURCE
 Suites: $TARGET_UBUNTU_VERSION
@@ -116,7 +116,7 @@ EOF
 
 	# Remove stale legacy-format sources.list (debootstrap artifact).
 	# Ubuntu 24.04+ uses deb822 .sources files in sources.list.d/ instead.
-	sudo rm -f "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list"
+	rm -f "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list"
 
 	print_ok "Setting up AnduinOS APKG apt source in chroot..."
 
@@ -124,13 +124,13 @@ EOF
 	local cert_url="$APKG_SERVER/artifacts/certs/$APKG_CERT_NAME"
 
 	print_ok "Downloading GPG keyring from $cert_url ..."
-	sudo mkdir -p "$DISTRO_IMG_DIR_PATH/usr/share/keyrings"
-	curl -sL "$cert_url" | sed '1s/^\xEF\xBB\xBF//' | gpg --dearmor | sudo tee "$keyring_path" > /dev/null
+	mkdir -p "$DISTRO_IMG_DIR_PATH/usr/share/keyrings"
+	curl -sL "$cert_url" | sed '1s/^\xEF\xBB\xBF//' | gpg --dearmor | tee "$keyring_path" > /dev/null
 	judge "Download and dearmor keyring"
 
 	print_ok "Generating anduinos.sources for $APKG_SERVER (suite: $TARGET_UBUNTU_VERSION-addon)..."
-	sudo mkdir -p "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d"
-	sudo tee "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d/anduinos.sources" > /dev/null <<EOF
+	mkdir -p "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d"
+	tee "$DISTRO_IMG_DIR_PATH/etc/apt/sources.list.d/anduinos.sources" > /dev/null <<EOF
 Types: deb
 URIs: $APKG_SERVER/artifacts/anduinos/
 Suites: $TARGET_UBUNTU_VERSION-addon
@@ -141,18 +141,18 @@ EOF
 	judge "Generate sources"
 
 	print_ok "Enabling apt recommends in chroot..."
-	echo 'APT::Install-Recommends "true";' | sudo tee "$DISTRO_IMG_DIR_PATH/etc/apt/apt.conf.d/99-enable-recommends" > /dev/null
+	echo 'APT::Install-Recommends "true";' | tee "$DISTRO_IMG_DIR_PATH/etc/apt/apt.conf.d/99-enable-recommends" > /dev/null
 	judge "Enable apt recommends"
 
 	print_ok "Running apt update in chroot..."
-	sudo chroot "$DISTRO_IMG_DIR_PATH" apt update
+	chroot "$DISTRO_IMG_DIR_PATH" apt update
 	judge "Apt update in chroot"
 
 	# Upgrade base system BEFORE mods run.  Swap packages (mod 01)
 	# must not be visible to this upgrade — apt would try to
 	# "normalize" them back to Ubuntu's lower version and fail.
 	print_ok "Upgrading base system packages..."
-	sudo chroot "$DISTRO_IMG_DIR_PATH" apt -y upgrade
+	chroot "$DISTRO_IMG_DIR_PATH" apt -y upgrade
 	judge "Upgrade base system"
 }
 
@@ -161,7 +161,7 @@ function run_chroot() {
 	print_warn "============================================"
 	print_warn "   The following will run in chroot ENV!"
 	print_warn "============================================"
-	sudo chroot "$DISTRO_IMG_DIR_PATH" /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/build/mods/fulfill-for-full-system.sh -
+	chroot "$DISTRO_IMG_DIR_PATH" /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/build/mods/fulfill-for-full-system.sh -
 	print_warn "============================================"
 	print_warn "   chroot ENV execution completed!"
 	print_warn "============================================"
@@ -174,18 +174,18 @@ function run_chroot() {
 function umount_folders() {
 
 	print_ok "Cleaning mods from chroot /root/build/mods..."
-	sudo rm -rf "$DISTRO_IMG_DIR_PATH/root/build"
+	rm -rf "$DISTRO_IMG_DIR_PATH/root/build"
 	judge "Clean up chroot /root/build"
 
 	print_ok "Unmounting /proc /sys /dev/pts within chroot..."
-	sudo chroot "$DISTRO_IMG_DIR_PATH" umount /dev/pts || sudo chroot "$DISTRO_IMG_DIR_PATH" umount -lf /dev/pts
-	sudo chroot "$DISTRO_IMG_DIR_PATH" umount /sys || sudo chroot "$DISTRO_IMG_DIR_PATH" umount -lf /sys
-	sudo chroot "$DISTRO_IMG_DIR_PATH" umount /proc || sudo chroot "$DISTRO_IMG_DIR_PATH" umount -lf /proc
+	chroot "$DISTRO_IMG_DIR_PATH" umount /dev/pts || chroot "$DISTRO_IMG_DIR_PATH" umount -lf /dev/pts
+	chroot "$DISTRO_IMG_DIR_PATH" umount /sys || chroot "$DISTRO_IMG_DIR_PATH" umount -lf /sys
+	chroot "$DISTRO_IMG_DIR_PATH" umount /proc || chroot "$DISTRO_IMG_DIR_PATH" umount -lf /proc
 	judge "Unmount /proc /sys /dev/pts"
 
 	print_ok "Unmounting /dev /run outside of chroot..."
-	sudo umount "$DISTRO_IMG_DIR_PATH/dev" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/dev"
-	sudo umount "$DISTRO_IMG_DIR_PATH/run" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/run"
+	umount "$DISTRO_IMG_DIR_PATH/dev" || umount -lf "$DISTRO_IMG_DIR_PATH/dev"
+	umount "$DISTRO_IMG_DIR_PATH/run" || umount -lf "$DISTRO_IMG_DIR_PATH/run"
 	judge "Unmount /dev /run"
 
 }
@@ -195,7 +195,7 @@ function build_iso() {
 	print_ok "Building ISO image..."
 
 	print_ok "Creating image directory..."
-	sudo rm -rf "$DISTRO_ISO_DIR_PATH"
+	rm -rf "$DISTRO_ISO_DIR_PATH"
 	mkdir -p "$DISTRO_ISO_DIR_PATH"/{casper,isolinux,.disk}
 	judge "Create image directory"
 
@@ -211,13 +211,13 @@ function build_iso() {
 		print_error "No kernel found via vmlinuz symlink in new_building_os/"
 		exit 1
 	fi
-	sudo cp "$REAL_VMLINUZ" "$DISTRO_ISO_DIR_PATH/casper/vmlinuz"
+	cp "$REAL_VMLINUZ" "$DISTRO_ISO_DIR_PATH/casper/vmlinuz"
 	# Keep both names for remix compatibility:
 	# - Legacy BIOS core.img may embed "/casper/initrd"
 	# - Some remix tools (e.g. Cubic) may rewrite text grub.cfg to "/casper/initrd.gz"
 	# Having both avoids boot mismatch between BIOS and UEFI paths.
-	sudo cp "$REAL_INITRD" "$DISTRO_ISO_DIR_PATH/casper/initrd"
-	#sudo cp "$REAL_INITRD" "$DISTRO_ISO_DIR_PATH/casper/initrd.gz"
+	cp "$REAL_INITRD" "$DISTRO_ISO_DIR_PATH/casper/initrd"
+	#cp "$REAL_INITRD" "$DISTRO_ISO_DIR_PATH/casper/initrd.gz"
 	judge "Copy kernel files"
 
 	print_ok "Generating grub.cfg..."
@@ -339,18 +339,18 @@ EOF
 
 	# generate manifest
 	print_ok "Generating manifes for filesystem..."
-	sudo chroot "$DISTRO_IMG_DIR_PATH" dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest" >/dev/null 2>&1
+	chroot "$DISTRO_IMG_DIR_PATH" dpkg-query -W --showformat='${Package} ${Version}\n' | tee "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest" >/dev/null 2>&1
 	judge "Generate manifest for filesystem"
 
 	print_ok "Generating manifest for filesystem-desktop..."
-	sudo cp -v "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest" "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest-desktop"
+	cp -v "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest" "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest-desktop"
 	for pkg in $TARGET_PACKAGE_REMOVE; do
-		sudo sed -i "/^$pkg /d" "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest-desktop"
+		sed -i "/^$pkg /d" "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest-desktop"
 	done
 	judge "Generate manifest for filesystem-desktop"
 
 	print_ok "Compressing rootfs as squashfs on /casper/filesystem.squashfs..."
-	sudo mksquashfs "$DISTRO_IMG_DIR_PATH" "$DISTRO_ISO_DIR_PATH/casper/filesystem.squashfs" \
+	mksquashfs "$DISTRO_IMG_DIR_PATH" "$DISTRO_ISO_DIR_PATH/casper/filesystem.squashfs" \
 		-noappend -no-duplicates -no-recovery \
 		-wildcards -b 1M \
 		-comp zstd -Xcompression-level 19 \
@@ -361,7 +361,7 @@ EOF
 	judge "Compress rootfs"
 
 	print_ok "Verifying the integrity of filesystem.squashfs..."
-	if sudo unsquashfs -s "$DISTRO_ISO_DIR_PATH/casper/filesystem.squashfs"; then
+	if unsquashfs -s "$DISTRO_ISO_DIR_PATH/casper/filesystem.squashfs"; then
 		print_ok "Verification successful. The file appears to be valid."
 	else
 		print_error "Verification FAILED! The squashfs file is likely corrupt."
@@ -369,7 +369,7 @@ EOF
 	fi
 
 	print_ok "Generating filesystem.size on /casper/filesystem.size..."
-	printf $(sudo du -sx --block-size=1 "$DISTRO_IMG_DIR_PATH" | cut -f1) > "$DISTRO_ISO_DIR_PATH/casper/filesystem.size"
+	printf $(du -sx --block-size=1 "$DISTRO_IMG_DIR_PATH" | cut -f1) > "$DISTRO_ISO_DIR_PATH/casper/filesystem.size"
 	judge "Generate filesystem.size"
 
 	print_ok "Generating README.diskdefines..."
@@ -426,17 +426,17 @@ EOF
 	(
 		cd isolinux && \
 		dd if=/dev/zero of=efiboot.img bs=1M count=10 && \
-		sudo mkfs.vfat efiboot.img && \
+		mkfs.vfat efiboot.img && \
 		mkdir efi && \
-		sudo mount efiboot.img efi
+		mount efiboot.img efi
 
-		if ! sudo grub-install --target=x86_64-efi --efi-directory=efi --boot-directory=boot --uefi-secure-boot --removable --no-nvram; then
-			sudo umount efi
+		if ! grub-install --target=x86_64-efi --efi-directory=efi --boot-directory=boot --uefi-secure-boot --removable --no-nvram; then
+			umount efi
 			print_error "grub-install failed!"
 			exit 1
 		fi
 
-		sudo umount efi && \
+		umount efi && \
 		rm -rf efi
 	)
 	judge "Create EFI boot image"
@@ -457,15 +457,15 @@ EOF
 	judge "Create hybrid boot image"
 
 	print_ok "Creating .disk/info..."
-	echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION $TARGET_UBUNTU_VERSION - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
+	echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION $TARGET_UBUNTU_VERSION - Release amd64 ($(date +%Y%m%d))" | tee .disk/info
 	judge "Create .disk/info"
 
 	print_ok "Creating md5sum.txt..."
-	sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
+	/bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
 	judge "Create md5sum.txt"
 
 	print_ok "Creating iso image on $WORK_DIR_PATH/$TARGET_NAME.iso..."
-	sudo xorriso \
+	xorriso \
 		-as mkisofs \
 		-r -J \
 		-iso-level 3 \
@@ -509,10 +509,10 @@ EOF
 function umount_on_exit() {
 	sleep 2
 	print_ok "Umount before exit..."
-	sudo umount "$DISTRO_IMG_DIR_PATH/sys" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/sys" || true
-	sudo umount "$DISTRO_IMG_DIR_PATH/proc" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/proc" || true
-	sudo umount "$DISTRO_IMG_DIR_PATH/dev" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/dev" || true
-	sudo umount "$DISTRO_IMG_DIR_PATH/run" || sudo umount -lf "$DISTRO_IMG_DIR_PATH/run" || true
+	umount "$DISTRO_IMG_DIR_PATH/sys" || umount -lf "$DISTRO_IMG_DIR_PATH/sys" || true
+	umount "$DISTRO_IMG_DIR_PATH/proc" || umount -lf "$DISTRO_IMG_DIR_PATH/proc" || true
+	umount "$DISTRO_IMG_DIR_PATH/dev" || umount -lf "$DISTRO_IMG_DIR_PATH/dev" || true
+	umount "$DISTRO_IMG_DIR_PATH/run" || umount -lf "$DISTRO_IMG_DIR_PATH/run" || true
 	judge "Umount before exit"
 }
 
