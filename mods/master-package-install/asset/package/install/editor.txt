@@ -1,0 +1,10 @@
+
+
+##
+## ## Editor
+##
+
+nano
+micro
+vim
+neovim

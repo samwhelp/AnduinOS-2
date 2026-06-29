@@ -1,0 +1,10 @@
+
+
+##
+## ## Font
+##
+
+fonts-ubuntu
+fonts-ubuntu-console
+fonts-dejavu
+fonts-liberation2

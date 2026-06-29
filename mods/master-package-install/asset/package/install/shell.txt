@@ -1,0 +1,10 @@
+
+
+##
+## ## Shell
+##
+
+bash
+bash-completion
+fzf
+fastfetch
