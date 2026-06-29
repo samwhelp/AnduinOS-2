@@ -161,7 +161,7 @@ function run_chroot() {
 	print_warn "============================================"
 	print_warn "   The following will run in chroot ENV!"
 	print_warn "============================================"
-	sudo chroot "$DISTRO_IMG_DIR_PATH" /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/build/mods/rundown.sh -
+	sudo chroot "$DISTRO_IMG_DIR_PATH" /usr/bin/env DEBIAN_FRONTEND=${DEBIAN_FRONTEND:-readline} /root/build/mods/fulfill-for-full-system.sh -
 	print_warn "============================================"
 	print_warn "   chroot ENV execution completed!"
 	print_warn "============================================"
