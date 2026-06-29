@@ -15,16 +15,16 @@ set -o pipefail				# exit on pipeline error
 #=============================
 
 BASE_DIR_PATH="$(dirname "$(readlink -f "$0")")"
-LIBS_DIR_PATH="$(realpath "$BASE_DIR_PATH/..")"
-MODS_DIR_PATH="$BASE_DIR_PATH"
+LIBS_DIR_PATH="$(realpath "$BASE_DIR_PATH/../libs")"
 
 
 #=============================
-# Load Libs
+# Init
 #=============================
 
-source "$LIBS_DIR_PATH/args.sh"
-source "$LIBS_DIR_PATH/shared.sh"
+source "$LIBS_DIR_PATH/worker/init.sh"
+
+
 
 
 #=============================
