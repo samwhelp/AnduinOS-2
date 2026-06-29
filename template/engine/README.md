@@ -157,14 +157,14 @@ make build
 
 ## System
 
-* [model.sh](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/model.sh#L169)
+* [model.sh](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/template/engine/libs/controller/model.sh)
 
 | System | Fulfill Rundown | Introduction |
 | ------ | ------- | ------------ |
 | `make create-core-system` | none | `debootstrap` |
-| `make create-base-system` | [fulfill-for-base-system.txt](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/mods/fulfill-for-base-system.txt) | `debootstrap + base settings` |
-| `make create-basic-system` | [fulfill-for-basic-system.txt](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/mods/fulfill-for-basic-system.txt) | `debootstrap + base settings + anduinos apt-sources` |
-| `make create-full-system` | [fulfill-for-full-system.txt](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/mods/fulfill-for-full-system.txt) | `debootstrap + base settings + anduinos apt-sources + extra` |
+| `make create-base-system` | [fulfill-for-base-system.txt](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/template/engine/mods/fulfill-for-base-system.txt) | `debootstrap + base settings` |
+| `make create-basic-system` | [fulfill-for-basic-system.txt](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/template/engine/mods/fulfill-for-basic-system.txt) | `debootstrap + base settings + anduinos apt-sources` |
+| `make create-full-system` | [fulfill-for-full-system.txt](https://github.com/samwhelp/AnduinOS-2/blob/demo-build-template/template/engine/mods/fulfill-for-full-system.txt) | `debootstrap + base settings + anduinos apt-sources + extra` |
 
 
 
