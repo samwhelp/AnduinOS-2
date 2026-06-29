@@ -366,7 +366,7 @@ function sys_copy_fulfill_scripts_to_chroot() {
 	print_info "Copying fulfill scripts to chroot /root/build ..."
 	mkdir -p "$DISTRO_IMG_DIR_PATH/root/build"
 	cp -rfT "$LIBS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/libs"
-	cp -ffT "$MODS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/mods"
+	cp -rfT "$MODS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/root/build/mods"
 	print_ok "Copying fulfill scripts to chroot /root/build"
 
 }
