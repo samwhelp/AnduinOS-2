@@ -38,4 +38,4 @@ sudo "$BASE_DIR_PATH/do-archive-system-to-iso.sh"
 ## change dist owner to current user
 ##
 
-[ -d "$DIST_DIR_PATH" ] && echo "change dist owner to current user"; sudo chown $(whoami):$(whoami) "$DIST_DIR_PATH" -R
+#[ -d "$DIST_DIR_PATH" ] && echo "change dist owner to current user"; sudo chown $(whoami):$(whoami) "$DIST_DIR_PATH" -R
