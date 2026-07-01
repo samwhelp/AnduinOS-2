@@ -88,7 +88,7 @@ base-network-config-install
 ## ## Installer
 ##
 
-installer-package-install
+anduinos-installer-package-install
 
 
 
