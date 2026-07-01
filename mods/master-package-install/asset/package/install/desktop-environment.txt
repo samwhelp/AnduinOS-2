@@ -1,7 +1,7 @@
 
 
 ##
-## ## Desktop Environment
+## # Desktop Environment
 ##
 
 gnome-tweaks
