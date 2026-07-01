@@ -54,9 +54,9 @@ function mod_config_netplan() {
 	print_info "Configuring netplan..."
 
 cat << EOF > /etc/netplan/01-network-manager-all.yaml
-	network:
-		version: 2
-		renderer: NetworkManager
+network:
+  version: 2
+  renderer: NetworkManager
 EOF
 	judge "Configure netplan"
 
