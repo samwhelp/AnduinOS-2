@@ -31,7 +31,7 @@ source "$LIBS_DIR_PATH/worker/init.sh"
 # Model
 #=============================
 
-function model_installer_package_install() {
+function model_anduinos_installer_package_install() {
 
 	apt install $INTERACTIVE \
 		anduinos-installer-config \
@@ -46,14 +46,14 @@ function model_installer_package_install() {
 # Main
 #=============================
 
-function portal_installer_package_install() {
+function portal_anduinos_installer_package_install() {
 
 	core_check_permission
 
 	print_info "Installing AnduinOS installer (Ubiquity + wrapper + slides + bwrap compat) ..."
-	model_installer_package_install
+	model_anduinos_installer_package_install
 	judge "Install anduinos-installer-config"
 
 }
 
-portal_installer_package_install
+portal_anduinos_installer_package_install
