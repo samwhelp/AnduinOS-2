@@ -11,10 +11,10 @@ set -u						# treat unset variable as error
 
 
 BASE_DIR_PATH="$(dirname "$(readlink -f "$0")")"
-ASSET_DIR_PATH="$BASE_DIR_PATH/asset"
-OVERLAY_DIR_PATH="$ASSET_DIR_PATH/overlay"
-PACKAGE_DIR_PATH="$ASSET_DIR_PATH/package"
-PACKAGE_INSTALL_DIR_PATH="$PACKAGE_DIR_PATH/install"
+MASTER_ASSET_DIR_PATH="$BASE_DIR_PATH/asset"
+MASTER_OVERLAY_DIR_PATH="$MASTER_ASSET_DIR_PATH/overlay"
+MASTER_PACKAGE_DIR_PATH="$MASTER_ASSET_DIR_PATH/package"
+MASTER_PACKAGE_INSTALL_DIR_PATH="$MASTER_PACKAGE_DIR_PATH/install"
 
 
 print_ok "Master File Installing..."
@@ -25,8 +25,8 @@ print_ok "Master File Installing..."
 #=============================
 
 function master_file_install() {
-	mkdir -p "$OVERLAY_DIR_PATH"
-	cp -rfT "$OVERLAY_DIR_PATH" /
+	mkdir -p "$MASTER_OVERLAY_DIR_PATH"
+	cp -rfT "$MASTER_OVERLAY_DIR_PATH" /
 }
 
 master_file_install
