@@ -30,10 +30,10 @@ function core_var_dump() {
 	echo "DISTRO_IMG_DIR_PATH=$DISTRO_IMG_DIR_PATH"
 	echo "DISTRO_ISO_DIR_PATH=$DISTRO_ISO_DIR_PATH"
 
-	echo "ASSET_DIR_PATH=$ASSET_DIR_PATH"
-	echo "OVERLAY_DIR_PATH=$OVERLAY_DIR_PATH"
-	echo "PACKAGE_DIR_PATH=$PACKAGE_DIR_PATH"
-	echo "PACKAGE_INSTALL_DIR_PATH=$PACKAGE_INSTALL_DIR_PATH"
+	echo "MASTER_ASSET_DIR_PATH=$MASTER_ASSET_DIR_PATH"
+	echo "MASTER_OVERLAY_DIR_PATH=$MASTER_OVERLAY_DIR_PATH"
+	echo "MASTER_PACKAGE_DIR_PATH=$MASTER_PACKAGE_DIR_PATH"
+	echo "MASTER_PACKAGE_INSTALL_DIR_PATH=$MASTER_PACKAGE_INSTALL_DIR_PATH"
 
 	judge "Dump variable"
 
@@ -430,7 +430,7 @@ function sys_copy_fulfill_scripts_to_chroot() {
 	mkdir -p "$DISTRO_IMG_DIR_PATH/opt/build/template/engine"
 	cp -rfT "$LIBS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/engine/libs"
 	cp -rfT "$MODS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/engine/mods"
-	cp -rfT "$ASSET_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/asset"
+	cp -rfT "$MASTER_ASSET_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/asset"
 	print_ok "Copying fulfill scripts to chroot /opt/build"
 
 }

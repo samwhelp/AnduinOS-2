@@ -35,10 +35,10 @@ source "$LIBS_DIR_PATH/worker/init.sh"
 ## uncoment for overwrite
 ##
 
-##ASSET_DIR_PATH="$BASE_DIR_PATH/asset"
-##OVERLAY_DIR_PATH="$ASSET_DIR_PATH/overlay"
-##PACKAGE_DIR_PATH="$ASSET_DIR_PATH/package"
-##PACKAGE_INSTALL_DIR_PATH="$PACKAGE_DIR_PATH/install"
+##MASTER_ASSET_DIR_PATH="$BASE_DIR_PATH/asset"
+##MASTER_OVERLAY_DIR_PATH="$MASTER_ASSET_DIR_PATH/overlay"
+##MASTER_PACKAGE_DIR_PATH="$MASTER_ASSET_DIR_PATH/package"
+##MASTER_PACKAGE_INSTALL_DIR_PATH="$MASTER_PACKAGE_DIR_PATH/install"
 
 
 
@@ -49,8 +49,8 @@ source "$LIBS_DIR_PATH/worker/init.sh"
 
 function model_master_file_install() {
 
-	mkdir -p "$OVERLAY_DIR_PATH"
-	cp -rfT "$OVERLAY_DIR_PATH" /
+	mkdir -p "$MASTER_OVERLAY_DIR_PATH"
+	cp -rfT "$MASTER_OVERLAY_DIR_PATH" /
 
 }
 

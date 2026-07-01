@@ -80,7 +80,7 @@ function mount_folders() {
 	mkdir -p "$DISTRO_IMG_DIR_PATH/opt/build/template/engine"
 	cp -rfT "$LIBS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/engine/libs"
 	cp -rfT "$MODS_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/engine/mods"
-	cp -rfT "$ASSET_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/asset"
+	cp -rfT "$MASTER_ASSET_DIR_PATH" "$DISTRO_IMG_DIR_PATH/opt/build/template/asset"
 	print_ok "Copying fulfill scripts to chroot /opt/build"
 
 }
