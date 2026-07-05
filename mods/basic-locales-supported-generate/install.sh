@@ -31,7 +31,7 @@ source "$LIBS_DIR_PATH/worker/init.sh"
 # Model
 #=============================
 
-function model_basic_locale_config_install() {
+function model_basic_locales_supported_generate() {
 
 	print_info "Generating locales from SUPPORTED_LOCALES..."
 
@@ -70,14 +70,14 @@ function model_basic_locale_config_install() {
 # Main
 #=============================
 
-function portal_basic_locale_config_install() {
+function portal_basic_locales_supported_generate() {
 
 	core_check_permission
 
 	print_info "Config Locale ..."
-	model_basic_locale_config_install
+	model_basic_locales_supported_generate
 	judge "Config Locale"
 
 }
 
-portal_basic_locale_config_install
+portal_basic_locales_supported_generate
