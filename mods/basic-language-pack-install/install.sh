@@ -36,6 +36,7 @@ function model_basic_language_pack_install() {
 	local VALID_PACKAGES=""
 
 	print_info "Filtering available language packs..."
+	print_info "(this might take a while)"
 	for pkg in $LANGUAGE_PACKS; do
 		if apt-get install -s -y "$pkg" >/dev/null 2>&1; then
 			VALID_PACKAGES="$VALID_PACKAGES $pkg"
@@ -46,6 +47,7 @@ function model_basic_language_pack_install() {
 
 
 	print_info "Installing available language packs..."
+	print_info "(this might take a while)"
 	if [ -n "$VALID_PACKAGES" ]; then
 		apt install $INTERACTIVE $VALID_PACKAGES --no-install-recommends
 		judge "Install language packs"
