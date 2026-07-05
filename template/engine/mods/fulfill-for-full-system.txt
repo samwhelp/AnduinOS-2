@@ -118,7 +118,7 @@ cleanup-ensure-no-junk
 ## ## Tail
 ##
 
-basic-locale-config-install
+basic-locales-supported-generate
 
 
 

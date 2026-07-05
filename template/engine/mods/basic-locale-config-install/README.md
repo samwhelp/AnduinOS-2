@@ -1,3 +1,0 @@
-
-
-# basic-locale-config-install
