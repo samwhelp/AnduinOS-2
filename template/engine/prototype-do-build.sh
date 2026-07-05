@@ -340,7 +340,7 @@ EOF
 
 
 	# generate manifest
-	print_ok "Generating manifes for filesystem..."
+	print_ok "Generating manifest for filesystem..."
 	chroot "$DISTRO_IMG_DIR_PATH" dpkg-query -W --showformat='${Package} ${Version}\n' | tee "$DISTRO_ISO_DIR_PATH/casper/filesystem.manifest" >/dev/null 2>&1
 	judge "Generate manifest for filesystem"
 
