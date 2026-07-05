@@ -311,7 +311,7 @@ EOF
 
 
     # generate manifest
-    print_ok "Generating manifes for filesystem..."
+    print_ok "Generating manifest for filesystem..."
     sudo chroot new_building_os dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee image/casper/filesystem.manifest >/dev/null 2>&1
     judge "Generate manifest for filesystem"
 
