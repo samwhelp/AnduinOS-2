@@ -40,5 +40,6 @@ if [ ! -s /etc/locale.gen ]; then
 	exit 1
 fi
 
+print_info "Generating locales (this might take a while) ..."
 locale-gen
 judge "Generate locales from SUPPORTED_LOCALES"

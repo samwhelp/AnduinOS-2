@@ -17,6 +17,7 @@ set -u						# treat unset variable as error
 #=============================
 
 print_ok "Filtering available language packs..."
+print_info "(this might take a while)"
 VALID_PACKAGES=""
 for pkg in $LANGUAGE_PACKS; do
 	if apt-get install -s -y "$pkg" >/dev/null 2>&1; then
@@ -27,6 +28,7 @@ for pkg in $LANGUAGE_PACKS; do
 done
 
 print_ok "Installing available language packs..."
+print_info "(this might take a while)"
 if [ -n "$VALID_PACKAGES" ]; then
 	apt install $INTERACTIVE $VALID_PACKAGES --no-install-recommends
 	judge "Install language packs"
