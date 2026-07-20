@@ -32,8 +32,8 @@ function download_base_system() {
     sudo mkdir -p new_building_os
     judge "Create build directory"
 
-    print_ok "Calling debootstrap to download base debian system..."
-    sudo debootstrap  --arch=amd64 --variant=minbase --include=ca-certificates,wget,dbus $TARGET_UBUNTU_VERSION new_building_os $APT_SOURCE
+    print_ok "Calling debootstrap to download base system (arch: $TARGET_ARCH)..."
+    sudo debootstrap  --arch=$TARGET_ARCH --variant=minbase --include=ca-certificates,wget,dbus $TARGET_UBUNTU_VERSION new_building_os $APT_SOURCE
     judge "Download base system"
 }
 
@@ -110,7 +110,7 @@ Types: deb
 URIs: $APKG_SERVER/artifacts/anduinos/
 Suites: $TARGET_UBUNTU_VERSION-addon
 Components: main
-Architectures: amd64
+Architectures: $TARGET_ARCH
 Signed-By: /usr/share/keyrings/anduinos-archive-keyring.gpg
 EOF
     judge "Generate sources"
@@ -349,8 +349,8 @@ EOF
 #define DISKNAME  Try $TARGET_BUSINESS_NAME
 #define TYPE  binary
 #define TYPEbinary  1
-#define ARCH  amd64
-#define ARCHamd64  1
+#define ARCH  $TARGET_ARCH
+#define ARCH${TARGET_ARCH}  1
 #define DISKNUM  1
 #define DISKNUM1  1
 #define TOTALNUM  0
@@ -401,7 +401,7 @@ EOF
         mkdir efi && \
         sudo mount efiboot.img efi
 
-        if ! sudo grub-install --target=x86_64-efi --efi-directory=efi --boot-directory=boot --uefi-secure-boot --removable --no-nvram; then
+        if ! sudo grub-install --target=$TARGET_ARCH-efi --efi-directory=efi --boot-directory=boot --uefi-secure-boot --removable --no-nvram; then
             sudo umount efi
             print_error "grub-install failed!"
             exit 1
@@ -412,55 +412,81 @@ EOF
     )
     judge "Create EFI boot image"
 
-    print_ok "Creating BIOS boot image on /isolinux/bios.img..."
-    grub-mkstandalone \
-        --format=i386-pc \
-        --output=isolinux/core.img \
-        --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls font gfxterm all_video" \
-        --modules="linux16 linux normal iso9660 biosdisk search font gfxterm all_video" \
-        --locales="" \
-        --fonts="" \
-        "boot/grub/grub.cfg=isolinux/grub.cfg"
-    judge "Create BIOS boot image"
+    # BIOS boot image — amd64-only.  ARM64 machines are pure UEFI.
+    if [ "$TARGET_ARCH" = "amd64" ]; then
+        print_ok "Creating BIOS boot image on /isolinux/bios.img..."
+        grub-mkstandalone \
+            --format=i386-pc \
+            --output=isolinux/core.img \
+            --install-modules="linux16 linux normal iso9660 biosdisk memdisk search tar ls font gfxterm all_video" \
+            --modules="linux16 linux normal iso9660 biosdisk search font gfxterm all_video" \
+            --locales="" \
+            --fonts="" \
+            "boot/grub/grub.cfg=isolinux/grub.cfg"
+        judge "Create BIOS boot image"
 
-    print_ok "Creating hybrid boot image on /isolinux/bios.img..."
-    cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
-    judge "Create hybrid boot image"
+        print_ok "Creating hybrid boot image on /isolinux/bios.img..."
+        cat /usr/lib/grub/i386-pc/cdboot.img isolinux/core.img > isolinux/bios.img
+        judge "Create hybrid boot image"
+    fi
 
     print_ok "Creating .disk/info..."
-    echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION $TARGET_UBUNTU_VERSION - Release amd64 ($(date +%Y%m%d))" | sudo tee .disk/info
+    echo "$TARGET_BUSINESS_NAME $TARGET_BUILD_VERSION $TARGET_UBUNTU_VERSION - Release $TARGET_ARCH ($(date +%Y%m%d))" | sudo tee .disk/info
     judge "Create .disk/info"
 
     print_ok "Creating md5sum.txt..."
-    sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
+    if [ "$TARGET_ARCH" = "amd64" ]; then
+        sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'bios.img' -e 'efiboot.img' > md5sum.txt)"
+    else
+        sudo /bin/bash -c "(find . -type f -print0 | xargs -0 md5sum | grep -v -e 'md5sum.txt' -e 'efiboot.img' > md5sum.txt)"
+    fi
     judge "Create md5sum.txt"
 
-    print_ok "Creating iso image on $SCRIPT_DIR/$TARGET_NAME.iso..."
-    sudo xorriso \
-        -as mkisofs \
-        -r -J \
-        -iso-level 3 \
-        -full-iso9660-filenames \
-        -volid "$TARGET_NAME" \
-        -eltorito-boot boot/grub/bios.img \
-            -no-emul-boot \
-            -boot-load-size 4 \
-            -boot-info-table \
-            --eltorito-catalog boot/grub/boot.cat \
-            --grub2-boot-info \
-            --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
-        -eltorito-alt-boot \
+    print_ok "Creating iso image on $SCRIPT_DIR/$TARGET_NAME.iso (arch: $TARGET_ARCH)..."
+    if [ "$TARGET_ARCH" = "amd64" ]; then
+        # amd64: hybrid ISO with BIOS (El Torito) + UEFI
+        sudo xorriso \
+            -as mkisofs \
+            -r -J \
+            -iso-level 3 \
+            -full-iso9660-filenames \
+            -volid "$TARGET_NAME" \
+            -eltorito-boot boot/grub/bios.img \
+                -no-emul-boot \
+                -boot-load-size 4 \
+                -boot-info-table \
+                --eltorito-catalog boot/grub/boot.cat \
+                --grub2-boot-info \
+                --grub2-mbr /usr/lib/grub/i386-pc/boot_hybrid.img \
+            -eltorito-alt-boot \
+                -e EFI/efiboot.img \
+                -no-emul-boot \
+                -append_partition 2 0xef isolinux/efiboot.img \
+            -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
+            -m "isolinux/efiboot.img" \
+            -m "isolinux/bios.img" \
+            -graft-points \
+                "/EFI/efiboot.img=isolinux/efiboot.img" \
+                "/boot/grub/grub.cfg=isolinux/grub.cfg" \
+                "/boot/grub/bios.img=isolinux/bios.img" \
+                "."
+    else
+        # arm64: UEFI-only ISO — no BIOS, no El Torito, no hybrid MBR
+        sudo xorriso \
+            -as mkisofs \
+            -r -J \
+            -iso-level 3 \
+            -full-iso9660-filenames \
+            -volid "$TARGET_NAME" \
             -e EFI/efiboot.img \
             -no-emul-boot \
-            -append_partition 2 0xef isolinux/efiboot.img \
-        -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
-        -m "isolinux/efiboot.img" \
-        -m "isolinux/bios.img" \
-        -graft-points \
-            "/EFI/efiboot.img=isolinux/efiboot.img" \
-            "/boot/grub/grub.cfg=isolinux/grub.cfg" \
-            "/boot/grub/bios.img=isolinux/bios.img" \
-            "."
+            -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
+            -m "isolinux/efiboot.img" \
+            -graft-points \
+                "/EFI/efiboot.img=isolinux/efiboot.img" \
+                "/boot/grub/grub.cfg=isolinux/grub.cfg" \
+                "."
+    fi
 
     judge "Create iso image"
 

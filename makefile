@@ -2,18 +2,28 @@
 SHELL         := /usr/bin/env bash
 .DEFAULT_GOAL := current
 
-DEPS := \
+DEPS_COMMON := \
   binutils \
   curl \
   debootstrap \
   gnupg \
   squashfs-tools \
   xorriso \
-  grub-pc-bin \
-  grub-efi-amd64 \
   grub2-common \
   mtools \
   dosfstools
+
+# Pick arch-specific GRUB packages at run time so the same Makefile
+# works on both amd64 and arm64 build hosts.
+DEPS_amd64 := \
+  grub-pc-bin \
+  grub-efi-amd64
+
+DEPS_arm64 := \
+  grub-efi-arm64
+
+TARGET_ARCH ?= $(shell grep -oP 'export TARGET_ARCH="\K[^"]+' args.sh 2>/dev/null || echo amd64)
+DEPS := $(DEPS_COMMON) $(DEPS_$(TARGET_ARCH))
 
 .PHONY: current clean bootstrap menuconfig buildtorrent help
 
