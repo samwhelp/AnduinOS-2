@@ -11,6 +11,13 @@ export SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 source $SCRIPT_DIR/shared.sh
 source $SCRIPT_DIR/args.sh
 
+# Map Debian arch name to GRUB target name (amd64 -> x86_64, arm64 -> arm64)
+case "$TARGET_ARCH" in
+    amd64) GRUB_EFI_TARGET="x86_64-efi" ;;
+    arm64) GRUB_EFI_TARGET="arm64-efi" ;;
+    *)     GRUB_EFI_TARGET="${TARGET_ARCH}-efi" ;;
+esac
+
 function bind_signal() {
     print_ok "Bind signal..."
     trap umount_on_exit EXIT
@@ -401,7 +408,7 @@ EOF
         mkdir efi && \
         sudo mount efiboot.img efi
 
-        if ! sudo grub-install --target=$TARGET_ARCH-efi --efi-directory=efi --boot-directory=boot --uefi-secure-boot --removable --no-nvram; then
+        if ! sudo grub-install --target=$GRUB_EFI_TARGET --efi-directory=efi --boot-directory=boot --uefi-secure-boot --removable --no-nvram; then
             sudo umount efi
             print_error "grub-install failed!"
             exit 1
