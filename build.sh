@@ -487,6 +487,8 @@ EOF
             -volid "$TARGET_NAME" \
             -e EFI/efiboot.img \
             -no-emul-boot \
+            -append_partition 2 0xef isolinux/efiboot.img \
+            -appended_part_as_gpt \
             -output "$SCRIPT_DIR/$TARGET_NAME.iso" \
             -m "isolinux/efiboot.img" \
             -graft-points \

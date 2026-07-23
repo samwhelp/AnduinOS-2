@@ -126,10 +126,10 @@ export TARGET_BUSINESS_NAME="AnduinOS"
 export TARGET_BUILD_VERSION="2.0.1"
 
 # Target CPU architecture.
-#   amd64 — Intel / AMD 64-bit (default)
+#   amd64 — Intel / AMD 64-bit
 #   arm64 — ARM 64-bit (Raspberry Pi, Snapdragon, Apple Silicon, etc.)
 # Override on the command line:  TARGET_ARCH=arm64 ./build.sh
-export TARGET_ARCH="amd64"
+export TARGET_ARCH="$(dpkg --print-architecture)"
 
 #===========================
 # Installer customization
